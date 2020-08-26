@@ -17,13 +17,13 @@ class HelloBeerService(APIView):
 
 class GetWeatherTemperature(APIView):
 
-    def call_weather_api():
+    def call_weather_api(self):
         return 24
         
     def get(self, request):
         # call weather api
         
-        temperature = call_weather_api()
+        temperature = self.call_weather_api()
         
         content = {'temperature': f'{temperature}'}
         return Response(content)

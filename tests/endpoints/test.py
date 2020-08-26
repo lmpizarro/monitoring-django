@@ -30,6 +30,14 @@ def hello():
     
     print(response.json())
 
+def temperature():
+    url_hello = be_url.format("api/temperature/")
+
+    response = requests.get(url_hello, headers=header)
+    
+    print(response.json())
+
+
 if __name__ == '__main__':
     tokens = login()
     
@@ -38,3 +46,5 @@ if __name__ == '__main__':
     print(header)
     
     hello()
+    
+    temperature()
