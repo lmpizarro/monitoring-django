@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.conf import settings
 
 # Create your views here.
 
@@ -8,9 +7,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
 
-import requests
-import json
-
+from app.services import Weather
 
 class HelloBeerService(APIView):
     permission_classes = (IsAuthenticated,)
@@ -20,27 +17,6 @@ class HelloBeerService(APIView):
         return Response(content)
 
 
-class WeatherService():
-
-    def __init__(self):
-        self.endpoint_weather = settings.WEATHER_API_URL.format(settings.WEATHER_PLACE, settings.WEATHER_APPID)
-        
-    def call_weather_api(self):                
-        try:     
-            response = requests.get(self.endpoint_weather)
-            data = json.loads(response.text)
-            data = data['main']
-            data.pop('pressure', None)
-            data.pop('humidity', None)
-            data['error'] = False            
-        except Exception as e:
-            message = 'ERROR: {}'.format(e)
-            data = {}
-            data['error'] = True
-            data['mesasge'] = message
-   
-        return data
-         
        
 
 class GetWeatherTemperature(APIView):
@@ -52,7 +28,7 @@ class GetWeatherTemperature(APIView):
     def get(self, request):
         # call weather api
         
-        WS = WeatherService()
+        WS = Weather()
         
         temperature = WS.call_weather_api()
         
