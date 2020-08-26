@@ -20,13 +20,11 @@ class Weather():
             response = requests.get(self.endpoint_weather)
             data = json.loads(response.text)
             data = data['main']
-            data.pop('pressure', None)
-            data.pop('humidity', None)
+
+            
+            data = {k:Weather.to_celsius(data[k]) for k in ['temp', 'temp_min', 'temp_max', 'feels_like']}
             data['error'] = False
-            data['temp'] = Weather.to_celsius(data['temp'])
-            data['temp_min'] = Weather.to_celsius(data['temp_min'])
-            data['temp_max'] = Weather.to_celsius(data['temp_max'])
-            data['feels_like'] = Weather.to_celsius(data['feels_like'])                                    
+ 
         except Exception as e:
             message = 'ERROR: {}'.format(e)
             data = {}
