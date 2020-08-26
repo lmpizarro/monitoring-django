@@ -31,11 +31,21 @@ def hello():
     print(response.json())
 
 def temperature():
-    url_hello = be_url.format("api/temperature/")
+    url_temp = be_url.format("api/temperature/")
 
-    response = requests.get(url_hello, headers=header)
+    response = requests.get(url_temp, headers=header)
     
     print(response.json())
+
+
+
+def bottles():
+    url_bott = be_url.format("api/bottlesByPerson/")
+
+    response = requests.get(url_bott, headers=header)
+    
+    print(response.json())
+
 
 
 if __name__ == '__main__':
@@ -48,3 +58,5 @@ if __name__ == '__main__':
     hello()
     
     temperature()
+    
+    bottles()

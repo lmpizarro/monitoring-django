@@ -5,6 +5,10 @@ import requests
 import json
 
 
+# implements 
+# http://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=80094b733f66d8d7096912d870c78fd5
+
+
 class Weather():
 
     def __init__(self):
@@ -19,9 +23,7 @@ class Weather():
         try:     
             response = requests.get(self.endpoint_weather)
             data = json.loads(response.text)
-            data = data['main']
-
-            
+            data = data['main']            
             data = {k:Weather.to_celsius(data[k]) for k in ['temp', 'temp_min', 'temp_max', 'feels_like']}
             data['error'] = False
  
@@ -34,3 +36,16 @@ class Weather():
         return data
          
 
+class TemperatureLogic():
+
+    def __init__(self, lowerLevel=20, upperLevel=24):
+       self.low = lowerLevel
+       self.max = upperLevel
+       
+    def discriminator(self, temp):
+       if temp < self.low:
+           return 0.75
+       elif temp > self.max:
+           return 2.0
+       else:
+           return 1.0
