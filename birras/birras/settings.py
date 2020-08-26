@@ -126,3 +126,8 @@ REST_FRAMEWORK = {
     ],
 }
 
+
+WEATHER_API_URL = 'http://api.openweathermap.org/data/2.5/weather?q={}&APPID={}'
+WEATHER_PLACE = 'London,uk' 
+WEATHER_APPID = '80094b733f66d8d7096912d870c78fd5'
+
