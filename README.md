@@ -37,4 +37,6 @@ Apis weather:
 - AccuWeather
 - dark-sky
 
+python3 -m venv venv
+source venv/bin/activate
 
