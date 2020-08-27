@@ -9,7 +9,9 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         try:
-            CurrentTemperature.objects.all().delete()
+            qs = CurrentTemperature.objects.all()
+            for e in qs[9:]:
+               e.delete()
         except Exception as e:
             print('ERROR DELETE DB')
 

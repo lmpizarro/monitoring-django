@@ -26,5 +26,5 @@ class MeeterAdmin(admin.ModelAdmin):
 
 @admin.register(CurrentTemperature)
 class CurrentTemperatureAdmin(admin.ModelAdmin):
-    list_display = ['date_time', 'temp', 'temp_max']
+    list_display = ['date_time', 'temp', 'temp_min', 'temp_max', 'feels_like']
 

@@ -38,7 +38,7 @@ class Weather():
 
 class TemperatureLogic():
 
-    def __init__(self, lowerLevel=20, upperLevel=24):
+    def __init__(self, lowerLevel=settings.TEMP_MIN, upperLevel=settings.TEMP_MAX):
        self.low = lowerLevel
        self.max = upperLevel
        
@@ -49,3 +49,16 @@ class TemperatureLogic():
            return 2.0
        else:
            return 1.0
+           
+def boxs_to_buy(temp, meeters):
+    tl = TemperatureLogic()
+    
+    bot_per_meet = tl.discriminator(temp)
+    
+    bottles = int(meeters * bot_per_meet)
+    
+    while bottles % 6:
+        bottles +=1
+    return bottles / 6
+    
+ 
