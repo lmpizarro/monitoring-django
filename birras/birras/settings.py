@@ -138,3 +138,22 @@ WEATHER_API_URL = 'http://api.openweathermap.org/data/2.5/weather?q={}&APPID={}'
 WEATHER_PLACE = 'London,uk' 
 WEATHER_APPID = '80094b733f66d8d7096912d870c78fd5'
 
+CELERY_BROKER_URL='redis://redis:6379/0'
+
+
+from celery.schedules import crontab   
+CELERY_TIMEZONE = 'UTC'
+CELERY_BEAT_SCHEDULE = {
+ 'send-summary-every-hour': {
+       'task': 'summary',
+        # There are 4 ways we can handle time, read further 
+       'schedule': 10.0,
+        # If you're using any arguments
+        #'args': ('We don t need any',),
+    },
+    # Execute daily at midnight.
+    'send-notification-at-midnight.': { 
+         'task': 'birras.tasks.send_notification', 
+         'schedule': crontab(minute=0, hour=0,),
+        },          
+}

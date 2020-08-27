@@ -9,3 +9,16 @@
         - "8080:8080"
       environment:
         - CONTAINER=web
+      depends_on:
+        - redis
+    redis:
+        image: redis
+    celery-worker:
+        build: 
+            context: ./birras
+            dockerfile: Dockerfile
+        environment:
+          - CONTAINER=worker
+        depends_on:
+           - redis
+           - web           

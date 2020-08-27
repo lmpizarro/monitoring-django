@@ -8,6 +8,11 @@ then
     python manage.py createsuperuser2 --username admin --password admin --noinput --email 'blank@email.com'
     python manage.py init_db
     python manage.py collectstatic --no-input
-    gunicorn -c gunicorn.py birras.wsgi:application    
+    gunicorn -c gunicorn.py birras.wsgi:application
+elif [ "$CONTAINER" = "worker" ]
+then
+  sleep 10
+  echo "running worker"
+  celery -A birras worker -B -l info
 fi
 exec "$@"

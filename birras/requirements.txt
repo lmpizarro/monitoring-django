@@ -5,3 +5,4 @@ requests
 drf-yasg
 gunicorn
 whitenoise
+celery[redis]
