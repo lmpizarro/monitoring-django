@@ -1,0 +1,10 @@
+  version: '3.3'
+    
+  services:
+    web:
+      build:
+         context: ./birras
+         dockerfile: Dockerfile
+      ports:
+        - "8080:8080"
+
