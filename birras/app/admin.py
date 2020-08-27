@@ -3,7 +3,7 @@ from django.conf import settings
 
 # Register your models here.
 
-from app.models import MeetUP, Meeter
+from app.models import MeetUP, Meeter, CurrentTemperature
 
 
 @admin.register(MeetUP)
@@ -22,3 +22,9 @@ class MeeterAdmin(admin.ModelAdmin):
     
     def get_meetups(self, obj):
         return obj.meetup_set.all().count()
+
+
+@admin.register(CurrentTemperature)
+class CurrentTemperatureAdmin(admin.ModelAdmin):
+    list_display = ['date_time', 'temp', 'temp_max']
+
