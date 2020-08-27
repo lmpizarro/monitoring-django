@@ -14,5 +14,10 @@ then
   sleep 10
   echo "running worker"
   celery -A birras worker -B -l info
+elif [ "$CONTAINER" = "flower" ]
+then
+  sleep 10
+  echo "running flower"
+  flower -A birras --port=5555
 fi
 exec "$@"

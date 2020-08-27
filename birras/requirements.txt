@@ -6,3 +6,4 @@ drf-yasg
 gunicorn
 whitenoise
 celery[redis]
+flower
