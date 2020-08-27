@@ -158,3 +158,6 @@ CELERY_BEAT_SCHEDULE = {
          'schedule': crontab(minute=0, hour=0,),
         },          
 }
+
+
+TEMP_WEATHER_MIN = .75
