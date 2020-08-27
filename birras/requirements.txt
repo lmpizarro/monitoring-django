@@ -7,3 +7,4 @@ gunicorn
 whitenoise
 celery[redis]
 flower
+django-grappelli
