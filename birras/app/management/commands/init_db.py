@@ -6,14 +6,16 @@ import datetime
 class Command(BaseCommand):
     help = 'Init DB'
 
-    meeters = [['mario@santader.com', 'mario'],
+    meeters = [
+               ['mario@santader.com', 'mario'],
                ['rosa@alba.com', 'rosa'],
-               ['ana@gmail.com', 'ana']]
+               ['ana@gmail.com', 'ana']
+              ]
 
     meetups = [
         ['anual meeting', datetime.datetime(2020, 10, 9, 18, 0, 0, 0), 'the place', 'nice anual meeting'],
         ['Reunion Barrio', datetime.datetime(2020, 11, 9, 21, 0, 0, 0), 'the other place', 'la reunion de barrio']
-    ]
+      ]
 
     def handle(self, *args, **options):
 
