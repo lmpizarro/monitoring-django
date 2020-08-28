@@ -46,6 +46,12 @@ def bottles():
     
     print(response.json())
 
+def getMeetUps():
+    url_meetup = be_url.format("api/getMeetUps/")
+
+    response = requests.get(url_meetup, headers=header)
+    
+    print(response.json())
 
 
 if __name__ == '__main__':
@@ -60,3 +66,5 @@ if __name__ == '__main__':
     temperature()
     
     bottles()
+    
+    getMeetUps()

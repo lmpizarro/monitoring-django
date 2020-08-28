@@ -1,7 +1,10 @@
 from django.conf import settings
 import requests
 import json
-
+import math
+from datetime import datetime
+import pytz
+from app.models import MeetUP
 
 # implements
 # http://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=80094b733f66d8d7096912d870c78fd5
@@ -48,7 +51,6 @@ class TemperatureLogic():
         else:
             return 1.0
 
-import math
 def boxs_to_buy(temp, meeters):
     tl = TemperatureLogic()
 
@@ -60,3 +62,17 @@ def boxs_to_buy(temp, meeters):
     while bottles % 6:
         bottles += 1
     return bottles / 6
+
+class MeetUPInterface:
+
+    def getActiveMeetUps(self):
+
+
+        now = datetime.utcnow().replace(tzinfo=pytz.utc)
+        meetup_qs = MeetUP.objects.filter(meet_date__gte=now)
+
+        meetups = []
+        for meetup in meetup_qs:
+            meetups.append({'name': meetup.name, 'datetime': meetup.meet_date})
+
+        return meetups

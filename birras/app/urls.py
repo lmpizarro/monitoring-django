@@ -1,5 +1,6 @@
 from django.urls import path
 from app import views
+from app.views import meeters
 
 from django.conf.urls import url
 
@@ -27,4 +28,5 @@ urlpatterns = [
     url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('temperature/', views.GetWeatherTemperature.as_view(), name='gettemperature'),
     path('bottlesByPerson/', views.GetBottlesByPerson.as_view(), name='bottleByPerson'),
+    path('getMeetUps/', meeters.GetMeetup.as_view(), name='getMeetUps'),
 ]
