@@ -73,6 +73,24 @@ class MeetUPInterface:
 
         meetups = []
         for meetup in meetup_qs:
-            meetups.append({'name': meetup.name, 'datetime': meetup.meet_date})
+            meetups.append({'meetup_id': meetup.id, 'name': meetup.name, 'datetime': meetup.meet_date})
 
         return meetups
+
+    def getMeetUpsDetails(self, pk):
+        details = {}
+
+        try:
+            meetup_model: MeetUP = MeetUP.objects.get(pk=pk)
+            meeters = meetup_model.meeters
+            count = meeters.count()
+            details['error'] = False
+            details['meeters_count'] = count
+            details['name'] = meetup_model.name
+            details['meet_date'] = meetup_model.meet_date
+        except Exception as e:
+            details['error'] = True
+
+        print(meetup_model)
+
+        return details

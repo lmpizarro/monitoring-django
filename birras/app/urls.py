@@ -5,6 +5,7 @@ from app.views import meeters
 from django.conf.urls import url
 
 from rest_framework import permissions
+from rest_framework.urlpatterns import format_suffix_patterns
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
@@ -28,5 +29,8 @@ urlpatterns = [
     url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('temperature/', views.GetWeatherTemperature.as_view(), name='gettemperature'),
     path('bottlesByPerson/', views.GetBottlesByPerson.as_view(), name='bottleByPerson'),
-    path('getMeetUps/', meeters.GetMeetup.as_view(), name='getMeetUps'),
+    path('getMeetUps/', meeters.GetMeetupList.as_view(), name='getMeetUps'),
+    path('get_meetup_details/<int:pk>/', meeters.GetMeetupDetails.as_view()),
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)

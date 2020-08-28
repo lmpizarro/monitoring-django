@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from app.models import MeetUP
 from app.services import MeetUPInterface
 
-class GetMeetup(APIView):
+class GetMeetupList(APIView):
     # permission_classes = (IsAuthenticated,)
 
     def get(self, request):
@@ -14,3 +14,17 @@ class GetMeetup(APIView):
         meetups = MI.getActiveMeetUps()
 
         return Response({'error': False, 'data': meetups})
+
+class GetMeetupDetails(APIView):
+
+    def get(self, request, pk, format=None):
+
+        MI = MeetUPInterface()
+
+        data = {'error': True}
+        meetup_detail = MI.getMeetUpsDetails(pk)
+
+        if meetup_detail['error'] == False:
+            data = meetup_detail
+
+        return Response(data)

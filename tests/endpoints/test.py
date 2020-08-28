@@ -52,6 +52,16 @@ def getMeetUps():
     response = requests.get(url_meetup, headers=header)
     
     print(response.json())
+    
+    
+def getMeetUpDetails(meetup_id):
+    url_meetup_detail = be_url.format("api/get_meetup_details/{}/").format(meetup_id)
+    
+
+    response = requests.get(url_meetup_detail, headers=header)
+    
+    print(response.json())
+
 
 
 if __name__ == '__main__':
@@ -68,3 +78,5 @@ if __name__ == '__main__':
     bottles()
     
     getMeetUps()
+    
+    getMeetUpDetails(37)
