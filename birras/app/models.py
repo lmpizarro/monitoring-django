@@ -1,5 +1,4 @@
 from django.db import models
-from _datetime import datetime
 # Create your models here.
 from django.utils import timezone
 import pytz

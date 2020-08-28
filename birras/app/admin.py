@@ -1,5 +1,6 @@
 from django.contrib import admin
-from django.conf import settings
+
+from birras import settings
 
 # Register your models here.
 
@@ -14,10 +15,10 @@ class MeetUpAdmin(admin.ModelAdmin):
         return obj.meeters.all().count()
         
     def min_bottles(self, obj):
-         return settings.TEMP_WEATHER_MIN * self.get_meeters(obj)
+         return settings.BOTTLES_MIN * self.get_meeters(obj)
 
     def min_boxs(self, obj):
-        return boxs_to_buy(settings.TEMP_WEATHER_MIN, self.get_meeters(obj))
+        return boxs_to_buy(settings.BOTTLES_MIN, self.get_meeters(obj))
 
 @admin.register(Meeter)
 class MeeterAdmin(admin.ModelAdmin):
