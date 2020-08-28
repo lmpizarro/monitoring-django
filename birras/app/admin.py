@@ -10,6 +10,7 @@ from app.services import boxs_to_buy
 @admin.register(MeetUP)
 class MeetUpAdmin(admin.ModelAdmin):
     list_display = ['name', 'meet_date', 'place', 'get_meeters', 'min_bottles', 'min_boxs']
+    list_filter = ['meet_date']
     
     def get_meeters(self, obj):
         return obj.meeters.all().count()
@@ -18,7 +19,7 @@ class MeetUpAdmin(admin.ModelAdmin):
          return settings.BOTTLES_MIN * self.get_meeters(obj)
 
     def min_boxs(self, obj):
-        return boxs_to_buy(settings.BOTTLES_MIN, self.get_meeters(obj))
+        return boxs_to_buy(settings.TEMP_MIN, self.get_meeters(obj))
 
 @admin.register(Meeter)
 class MeeterAdmin(admin.ModelAdmin):

@@ -1,7 +1,7 @@
 from django.test import TestCase
 from app.services import boxs_to_buy
 # Create your tests here.
-
+from birras.settings import TEMP_MIN, TEMP_MAX
 
 class ServiceTest(TestCase):
 
