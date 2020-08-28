@@ -92,6 +92,7 @@ typings/
 __pycache__/
 *.py[cod]
 *$py.class
+celerybeat-schedule.db
 
 # C extensions
 *.so

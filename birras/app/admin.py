@@ -4,17 +4,20 @@ from django.conf import settings
 # Register your models here.
 
 from app.models import MeetUP, Meeter, CurrentTemperature
-
+from app.services import boxs_to_buy
 
 @admin.register(MeetUP)
 class MeetUpAdmin(admin.ModelAdmin):
-    list_display = ['name', 'meet_date', 'place', 'get_meeters', 'min_bottles']
+    list_display = ['name', 'meet_date', 'place', 'get_meeters', 'min_bottles', 'min_boxs']
     
     def get_meeters(self, obj):
         return obj.meeters.all().count()
         
     def min_bottles(self, obj):
          return settings.TEMP_WEATHER_MIN * self.get_meeters(obj)
+
+    def min_boxs(self, obj):
+        return boxs_to_buy(settings.TEMP_WEATHER_MIN, self.get_meeters(obj))
 
 @admin.register(Meeter)
 class MeeterAdmin(admin.ModelAdmin):
@@ -26,5 +29,5 @@ class MeeterAdmin(admin.ModelAdmin):
 
 @admin.register(CurrentTemperature)
 class CurrentTemperatureAdmin(admin.ModelAdmin):
-    list_display = ['date_time', 'temp', 'temp_min', 'temp_max', 'feels_like']
+    list_display = ['id', 'date_time', 'temp', 'temp_min', 'temp_max', 'feels_like']
 

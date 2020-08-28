@@ -1,14 +1,9 @@
 from django.conf import settings
-
-
 import requests
 import json
 
-
-# implements 
+# implements
 # http://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=80094b733f66d8d7096912d870c78fd5
-
-
 class Weather():
 
     def __init__(self):
@@ -60,5 +55,4 @@ def boxs_to_buy(temp, meeters):
     while bottles % 6:
         bottles +=1
     return bottles / 6
-    
- 
+
