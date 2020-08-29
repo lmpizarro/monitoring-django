@@ -12,8 +12,7 @@ def set_header(authorization):
 
 # curl http://127.0.0.1:8080/api/token/ -d "username=admin&password=admin"
 def login(user='admin', password='admin'):
-    import requests
-
+ 
     url = be_url.format('api/token/')
 
     payload = {'username': user, 'password': password}
@@ -36,7 +35,6 @@ def temperature():
     response = requests.get(url_temp, headers=header)
     
     print(response.json())
-
 
 
 def bottles():
@@ -75,8 +73,6 @@ if __name__ == '__main__':
     tokens = login()
     
     set_header(tokens['access'])
-    
-    print(header)
     
     hello()
     

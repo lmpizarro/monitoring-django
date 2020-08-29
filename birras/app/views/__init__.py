@@ -1,10 +1,9 @@
 # Create your views here.
-
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-
-from app.services import Weather, TemperatureLogic
+from app.services import TemperatureLogic
+from app.services.weather import Weather
 
 
 class HelloBeerService(APIView):
@@ -16,6 +15,7 @@ class HelloBeerService(APIView):
 
 
 class GetWeatherTemperature(APIView):
+    permission_classes = (IsAuthenticated,)
 
     def get(self, request):
         WS = Weather()
