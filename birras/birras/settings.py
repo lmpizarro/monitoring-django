@@ -26,7 +26,7 @@ SECRET_KEY = '#ghw9(*tnt2d4508x!1su!knm*ud2n7l0-&y&zt)8yj)q4w73a'
 DEBUG = True
 DOCKER = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['web']
 
 
 # Application definition
