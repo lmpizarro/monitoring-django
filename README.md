@@ -43,3 +43,31 @@ pip install -r requirements.txt
 
 ## TODO
 [circuitbreaker](https://pypi.org/project/circuitbreaker/)
+
+## Docker
+
+
+[pruning](https://docs.docker.com/config/pruning/)
+
+clean up unused images
+```
+docker image prune
+```
+
+remove all images which are not used by existing containers
+```
+docker image prune -a
+```
+
+
+
+Delete all containers using the following command:
+```
+docker rm -f $(docker ps -a -q)
+```
+
+Delete all volumes using the following command:
+```
+docker volume rm $(docker volume ls -q)
+
+```

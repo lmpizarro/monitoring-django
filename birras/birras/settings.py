@@ -24,6 +24,7 @@ SECRET_KEY = '#ghw9(*tnt2d4508x!1su!knm*ud2n7l0-&y&zt)8yj)q4w73a'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+DOCKER = True
 
 ALLOWED_HOSTS = []
 
@@ -143,7 +144,12 @@ WEATHER_API_URL = 'http://api.openweathermap.org/data/2.5/weather?q={}&APPID={}'
 WEATHER_PLACE = 'London,uk' 
 WEATHER_APPID = '80094b733f66d8d7096912d870c78fd5'
 
-CELERY_BROKER_URL='redis://{}:6379/0'.format('localhost')
+
+redis_host = 'localhost'
+if DOCKER:
+    redis_host = 'redis'
+
+CELERY_BROKER_URL='redis://{}:6379/0'.format(redis_host)
 
 
 from celery.schedules import crontab   
