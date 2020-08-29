@@ -37,7 +37,6 @@ class Command(BaseCommand):
          'the other place', 'la reunion de barrio'],
         ['python for all', datetime.utcnow().replace(tzinfo=pytz.utc) + timedelta(hours=12),
          'the python place', 'python is nice']
-
     ]
 
     def handle(self, *args, **options):

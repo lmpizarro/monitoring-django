@@ -3,6 +3,10 @@ from app.services import boxs_to_buy
 from django.urls import reverse
 import json
 import requests
+from datetime import datetime, timedelta
+import pytz
+
+from app.models import MeetUP
 
 # Create your tests here.
 from birras.settings import TEMP_MIN, TEMP_MAX
@@ -15,8 +19,26 @@ class ServiceTest(TestCase):
     be_url = "http://localhost:8080{}"
     header = {'Content-type': 'application/json'}
 
-    def setup(self):
-        pass
+    def setUp(self):
+
+        now = datetime.utcnow().replace(tzinfo=pytz.utc)
+        meetups = [
+                      {'name': 'monthly meeting 1',
+                       'meet_date': now + timedelta(hours=12),
+                       'place': 'place1',
+                       'description': 'nice monthly meeting'},
+                      {'name': 'monthly meeting 2',
+                       'meet_date': now + timedelta(days=30),
+                       'place': 'place1',
+                       'description': 'nice monthly meeting'},
+        ]
+
+        for meetup in meetups:
+            print('CREATING MEETUP')
+            try:
+                MeetUP.objects.create(**meetup)
+            except Exception as e:
+                print(f'ERROR {e}')
 
     def set_header(self, authorization):
         self.header['Authorization'] = f'Bearer {authorization}'
@@ -84,3 +106,16 @@ class ServiceTest(TestCase):
         assert 'bottle_by_person' in response.json()
         assert not response.json()['error']
 
+    def test_get_meetups(self):
+        self.login()
+
+        url = self.be_url.format(reverse('getMeetUps'))
+
+        response = requests.get(url, headers=self.header)
+
+        self.assertEqual(len(response.json()), 2)
+
+    def test_meetups_all(self):
+        meetups = MeetUP.objects.all()
+
+        self.assertEqual(meetups.count(), 2)
