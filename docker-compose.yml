@@ -42,3 +42,7 @@
         - --config.file=/etc/prometheus/prometheus.yml
       volumes:
         - ./prometheus_yml/:/etc/prometheus/
+    grafana:
+      image: grafana/grafana:6.5.2
+      ports:
+         - 3060:3000
