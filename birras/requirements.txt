@@ -8,3 +8,4 @@ whitenoise
 celery[redis]
 flower
 django-grappelli
+django-prometheus
