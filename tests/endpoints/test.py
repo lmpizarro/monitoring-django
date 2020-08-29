@@ -62,6 +62,13 @@ def getMeetUpDetails(meetup_id):
     
     print(response.json())
 
+def getMeetUpsToday():
+    url_meetup_today = be_url.format("api/get_meetups_today/")
+    
+
+    response = requests.get(url_meetup_today, headers=header)
+    
+    print(response.json())
 
 
 if __name__ == '__main__':
@@ -79,4 +86,6 @@ if __name__ == '__main__':
     
     getMeetUps()
     
-    getMeetUpDetails(37)
+    getMeetUpDetails(40)
+    
+    getMeetUpsToday()

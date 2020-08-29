@@ -28,3 +28,15 @@ class GetMeetupDetails(APIView):
             data = meetup_detail
 
         return Response(data)
+
+class GetMeetUpsToday(APIView):
+
+    def get(self, request):
+        MI = MeetUPInterface()
+
+        data = MI.getMeetUpsToday()
+        if data['error'] == False:
+            return Response(data)
+        else:
+            return Response({'error': True})
+

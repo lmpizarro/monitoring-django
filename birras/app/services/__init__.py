@@ -5,6 +5,8 @@ import math
 from datetime import datetime
 import pytz
 from app.models import MeetUP
+from datetime import date, timedelta
+
 
 # implements
 # http://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=80094b733f66d8d7096912d870c78fd5
@@ -91,6 +93,25 @@ class MeetUPInterface:
         except Exception as e:
             details['error'] = True
 
-        print(meetup_model)
+        return details
+
+    def getMeetUpsToday(self):
+        details = {'error': True}
+
+        now = datetime.utcnow().replace(tzinfo=pytz.utc)
+        today = date.today() + timedelta(days=1)
+        midnight = datetime.combine(today, datetime.min.time())
+        print(now, midnight)
+        try:
+            meetup_qs = MeetUP.objects.filter(meet_date__gte=now, meet_date__lt=midnight)
+            data = [{'date': meetup.meet_date,
+                     'name': meetup.name,
+                     'count_meeters': meetup.meeters.count()} for meetup in meetup_qs]
+            details['meetups'] = data
+            details['error'] = False
+        except Exception as e:
+            print(f'ERROR {e}')
+
 
         return details
+
