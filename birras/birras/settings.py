@@ -155,16 +155,12 @@ CELERY_BROKER_URL='redis://{}:6379/0'.format(redis_host)
 from celery.schedules import crontab   
 CELERY_TIMEZONE = 'UTC'
 CELERY_BEAT_SCHEDULE = {
- 'update-temperature-every-hour': {
+    'update-temperature-every-hour': {
        'task': 'newtemperature',
-        # There are 4 ways we can handle time, read further 
        'schedule': 10.0,
-        # If you're using any arguments
-        #'args': ('We don t need any',),
     },
-    # Execute daily at midnight.
-    'send-notification-at-midnight.': { 
-         'task': 'birras.tasks.send_notification', 
+    'send-notification-at-midnight': { 
+         'task': 'send_notification', 
          'schedule': crontab(minute=0, hour=0,),
         },          
 }

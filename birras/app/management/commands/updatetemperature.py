@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 from app.models import CurrentTemperature
-from app.services import Weather
+from app.services.weather import Weather
 import datetime
 
 def updatetemperature():
