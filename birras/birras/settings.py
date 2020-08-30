@@ -26,7 +26,7 @@ SECRET_KEY = '#ghw9(*tnt2d4508x!1su!knm*ud2n7l0-&y&zt)8yj)q4w73a'
 DEBUG = True
 DOCKER = False
 
-ALLOWED_HOSTS = ['web', 'localhost']
+ALLOWED_HOSTS = ['web', 'localhost', '192.168.0.173']
 
 
 # Application definition
@@ -87,15 +87,6 @@ db_host = 'localhost'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-'''
-just to begin the project
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-'''
 
 DATABASES = {
     'default': {

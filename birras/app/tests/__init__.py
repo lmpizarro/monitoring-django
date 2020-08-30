@@ -6,7 +6,7 @@ import requests
 from datetime import datetime, timedelta, date
 import pytz
 
-from app.models import MeetUP
+from app.models import MeetUP, Meeter
 
 # Create your tests here.
 from birras.settings import TEMP_MIN, TEMP_MAX
@@ -40,9 +40,18 @@ class ServiceTest(TestCase):
         for meetup in meetups:
             print('CREATING MEETUP')
             try:
-                MeetUP.objects.create(**meetup)
+                model = MeetUP.objects.create(**meetup)
+                meetup['model'] = model
             except Exception as e:
                 print(f'ERROR {e}')
+
+
+        meeter = {'email': 'mario@gmail.com', 'name': 'mario gmail'}
+
+        model_meeter: Meeter = Meeter.objects.create(**meeter)
+
+        for meetup in meetups:
+            meetup['model'].meeters.add(model_meeter)
 
     def set_header(self, authorization):
         self.header['Authorization'] = f'Bearer {authorization}'
@@ -135,7 +144,6 @@ class ServiceTest(TestCase):
 
     def test_meetups_today_endpoint(self):
         self.login()
-
         url = self.be_url.format(reverse('get_meetups_today'))
 
         response = requests.get(url, headers=self.header)
@@ -143,3 +151,25 @@ class ServiceTest(TestCase):
         self.assertEqual(response.json()['error'], False)
         assert 'date' in response.json()['meetups'][0]
         assert 'boxs_to_buy' in response.json()['meetups'][0]
+
+    def test_meetup_details(self):
+        meetup_qs = MeetUP.objects.all()
+
+        meet_up_id = meetup_qs[0].id
+
+        meetup: MeetUP = MeetUP.objects.get(pk=meet_up_id)
+
+        assert meetup.name == 'monthly meeting 1'
+
+
+    def test_meetup_details_endpoint(self):
+        self.login()
+        meetup_qs = MeetUP.objects.all()
+
+        pk_meetup = meetup_qs[0].id
+
+        url = self.be_url.format(reverse('get_meetup_details', kwargs={'pk': pk_meetup}))
+
+        response = client.get(url)
+
+        assert response.json()['meeters_count'] == 1
