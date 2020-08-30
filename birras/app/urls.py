@@ -31,7 +31,7 @@ urlpatterns = [
     path('bottlesByPerson/', views.GetBottlesByPerson.as_view(), name='bottleByPerson'),
     path('getMeetUps/', meeters.GetMeetupList.as_view(), name='getMeetUps'),
     path('get_meetup_details/<int:pk>/', meeters.GetMeetupDetails.as_view()),
-    path('get_meetups_today/', meeters.GetMeetUpsToday.as_view()),
+    path('get_meetups_today/', meeters.GetMeetUpsToday.as_view(), name='get_meetups_today'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

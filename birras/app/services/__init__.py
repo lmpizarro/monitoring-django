@@ -4,7 +4,8 @@ from datetime import datetime
 import pytz
 from app.models import MeetUP
 from datetime import date, timedelta
-
+from app.services.weather import Weather
+from birras import settings
 
 class TemperatureLogic:
 
@@ -67,15 +68,25 @@ class MeetUPInterface:
     def getMeetUpsToday(self):
         details = {'error': True}
 
-        now = datetime.utcnow().replace(tzinfo=pytz.utc)
-        today = date.today() + timedelta(days=1)
-        midnight = datetime.combine(today, datetime.min.time())
-        print(now, midnight)
+        weather = Weather()
+
+        begday = datetime.combine(date.today(), datetime.min.time()).replace(tzinfo=pytz.UTC)
+        oneday = timedelta(days=1)
+        endday = begday + oneday
+
+        print(begday, endday)
+
+        temperature = weather.get_temperature()
+
+        if temperature == None:
+            temperature = settings.TEMP_MIN
+
         try:
-            meetup_qs = MeetUP.objects.filter(meet_date__gte=now, meet_date__lt=midnight)
+            meetups_qs = MeetUP.objects.filter(meet_date__gt=begday, meet_date__lt=endday)
             data = [{'date': meetup.meet_date,
                      'name': meetup.name,
-                     'count_meeters': meetup.meeters.count()} for meetup in meetup_qs]
+                     'count_meeters': meetup.meeters.count(),
+                     'boxs_to_buy': boxs_to_buy(temperature, meetup.meeters.count())} for meetup in meetups_qs]
             details['meetups'] = data
             details['error'] = False
         except Exception as e:

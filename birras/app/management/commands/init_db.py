@@ -35,7 +35,7 @@ class Command(BaseCommand):
          'the place', 'nice anual meeting'],
         ['Reunion Barrio', datetime(2020, 11, 9, 21, 0, 0, 0).replace(tzinfo=pytz.utc),
          'the other place', 'la reunion de barrio'],
-        ['python for all', datetime.utcnow().replace(tzinfo=pytz.utc) + timedelta(hours=12),
+        ['python for all', datetime.utcnow().replace(tzinfo=pytz.utc) + timedelta(hours=2),
          'the python place', 'python is nice']
     ]
 

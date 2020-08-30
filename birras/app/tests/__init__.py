@@ -134,4 +134,12 @@ class ServiceTest(TestCase):
 
 
     def test_meetups_today_endpoint(self):
-        pass
+        self.login()
+
+        url = self.be_url.format(reverse('get_meetups_today'))
+
+        response = requests.get(url, headers=self.header)
+
+        self.assertEqual(response.json()['error'], False)
+        assert 'date' in response.json()['meetups'][0]
+        assert 'boxs_to_buy' in response.json()['meetups'][0]

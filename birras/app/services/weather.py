@@ -14,6 +14,14 @@ class Weather:
     def to_celsius(temp):
         return float('{:.2f}'.format(temp - 273.15))
 
+    def get_temperature(self):
+        data = self.call_weather_api()
+
+        if not data['error']:
+            return data['temp']
+        else:
+            return None
+
     def call_weather_api(self):
         try:
             response = requests.get(self.endpoint_weather)
