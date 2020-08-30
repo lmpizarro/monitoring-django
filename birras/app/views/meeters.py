@@ -80,4 +80,13 @@ class SubscribeMeetup(APIView):
     def post(self, request, format=None):
         print(request.data)
 
-        return Response({'endpoint': 'subscribe_meet_up'})
+        MI = MeetUPInterface()
+
+        data = {'endpoint': 'subscribe_meet_up', 'error': True}
+        ret = MI.SubscribeMeetUp(request.data)
+
+        if not ret['error']:
+            data['error'] = False
+            data['message'] = ret['message']
+
+        return Response(data)

@@ -111,3 +111,36 @@ class MeetUPInterface:
             return None
 
         return model.id
+
+    def SubscribeMeetUp(self, request_data):
+
+        print(request_data)
+
+        data = {'error': True}
+        try:
+            model_meeter: Meeter = Meeter.objects.get(email=request_data['email'])
+            print('model_meeter')
+        except Exception as e:
+            message = 'NO_MEETER_IN_DB'
+            data['message'] = message
+            return data
+
+        try:
+            model_meetup: MeetUP = MeetUP.objects.get(pk=request_data['meetup_id'])
+            data['message'] = 'RELATION_MEETUP_MEETER_CREATED'
+            print('model_meetup')
+        except Exception as e:
+            message = 'NO_MEETUP_IN_DB'
+            data['message'] = message
+            return data
+
+        try:
+            a = model_meetup.meeters.add(model_meeter)
+            data['error'] = False
+            print('relation')
+            return data
+        except Exception as e:
+            message = 'MEETUP-MEETER_RELATION_NOT_CREATED'
+            data['message'] = message
+            print(f'NO relation{e}')
+            return data

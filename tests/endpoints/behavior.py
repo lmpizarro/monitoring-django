@@ -99,7 +99,7 @@ def create_meeter():
   
 def subscribe_meetup():
     url_subscribe = be_url.format("api/subscribe_meetup/")
-    data = {'email': 'algun_meeter@gmail.com', 'meetup_id': 7}
+    data = {'email': 'algun_meeter@gmail.com', 'meetup_id': 8}
     response_create = requests.request('POST', url_subscribe, data=json.dumps(data), headers=header)
     
     return response_create.json()
