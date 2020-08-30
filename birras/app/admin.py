@@ -23,7 +23,7 @@ class MeetUpAdmin(admin.ModelAdmin):
 
 @admin.register(Meeter)
 class MeeterAdmin(admin.ModelAdmin):
-    list_display = ['email', 'name', 'get_meetups']
+    list_display = ['id', 'email', 'name', 'get_meetups']
     
     def get_meetups(self, obj):
         return obj.meetup_set.all().count()

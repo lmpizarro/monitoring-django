@@ -19,69 +19,73 @@ def login(user='admin', password='admin'):
     headers= {}
 
     response = requests.post(url, headers=headers, data = payload)
-
-    return response.json()
+    tokens = response.json()
+    set_header(tokens['access'])
+    
+    return tokens
 
 def hello():
     url_hello = be_url.format("api/hello/")
 
     response = requests.get(url_hello, headers=header)
-    
-    print(response.json())
+
+    return response.json()
 
 def temperature():
     url_temp = be_url.format("api/temperature/")
 
     response = requests.get(url_temp, headers=header)
     
-    print(response.json())
+    return response.json()
 
 
-def bottles():
+def bottlesByPerson():
     url_bott = be_url.format("api/bottlesByPerson/")
 
     response = requests.get(url_bott, headers=header)
     
-    print(response.json())
+    return(response.json())
 
 def getMeetUps():
     url_meetup = be_url.format("api/getMeetUps/")
 
     response = requests.get(url_meetup, headers=header)
     
-    print(response.json())
+    return response.json()
     
     
 def getMeetUpDetails(meetup_id):
     url_meetup_detail = be_url.format("api/get_meetup_details/{}/").format(meetup_id)
     
-
     response = requests.get(url_meetup_detail, headers=header)
     
-    print(response.json())
+    return response.json()
 
 def getMeetUpsToday():
     url_meetup_today = be_url.format("api/get_meetups_today/")
-    
-
+  
     response = requests.get(url_meetup_today, headers=header)
     
-    print(response.json())
+    return response.json()
 
 
+def print_out(out_, mess):
+    print(f'{mess}\n{out_}\n')    
+    
+def main():
+    print_out(login(), 'LOGIN')
+    
+    print_out(hello(), 'HELLO')
+        
+    print_out(temperature(), 'TEMPERATURA')
+            
+    print_out(bottlesByPerson(), 'bottles')
+    
+    print_out(getMeetUps(), 'GETMEETUPS')
+    
+    print_out(getMeetUpDetails(6), 'getMeetUpDetails')
+    
+    print_out(getMeetUpsToday(), 'getMeetUpsToday')
+    
 if __name__ == '__main__':
-    tokens = login()
-    
-    set_header(tokens['access'])
-    
-    hello()
-    
-    temperature()
-    
-    bottles()
-    
-    getMeetUps()
-    
-    getMeetUpDetails(40)
-    
-    getMeetUpsToday()
+    main()

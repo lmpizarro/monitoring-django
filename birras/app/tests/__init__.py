@@ -94,6 +94,7 @@ class ServiceTest(TestCase):
         response = requests.get(url, headers=self.header)
 
         assert 'message' in response.json()
+        assert not response.json()['error']
         assert response.json()['message'].startswith('Hello')
 
     def test_temperature(self):

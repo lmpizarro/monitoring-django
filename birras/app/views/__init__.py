@@ -10,8 +10,9 @@ class HelloBeerService(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):
-        content = {'message': 'Hello, I am the Beer Service!'}
-        return Response(content)
+        data = {'error': False, 'message': 'Hello, I am the Beer Service!'}
+
+        return Response(data)
 
 
 class GetWeatherTemperature(APIView):
