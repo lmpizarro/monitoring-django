@@ -132,6 +132,7 @@ Stop the project
 $ docker-compose down -v remove-orphans
 ```
 
+### Docker cleaning
 
 clean up unused images
 ```
@@ -160,22 +161,28 @@ $ docker volume rm $(docker volume ls -q)
 
 
 
-## Referencias
+## References
 
-[django](https://www.djangoproject.com/)
-[celeryproject](https://docs.celeryproject.org/en/stable/getting-started/introduction.html)
-[django-rest-framework](https://www.django-rest-framework.org/tutorial/quickstart/)
-[django-rest-framework-jwt](https://jpadilla.github.io/django-rest-framework-jwt/)
-[swagger generator](https://drf-yasg.readthedocs.io/en/stable/readme.html)
-[flower](https://flower.readthedocs.io/en/latest/)
-[grappelli](https://grappelliproject.com/)
-[whitenoise](http://whitenoise.evans.io/en/stable/)
-[grafana](https://grafana.com/)
-[prometheus](https://prometheus.io/docs/introduction/overview/)
-[django-prometheus](https://github.com/korfuri/django-prometheus)
-[Docker](https://www.docker.com/)
-[how-to-use-jwt-authentication-with-django-rest-framework](https://simpleisbetterthancomplex.com/tutorial/2018/12/19/how-to-use-jwt-authentication-with-django-rest-framework.html)
-[monitoring](https://www.sipios.com/blog-tech/monitoring)
-[django prometheus docker compose](https://github.com/vegasbrianc/prometheus)
-[Docker_Prometheus_Grafana](https://www.bogotobogo.com/DevOps/Docker/Docker_Prometheus_Grafana.php)
-[pruning](https://docs.docker.com/config/pruning/)
+* The framework [django](https://www.djangoproject.com/)
+* The database [postgreSQL](https://postgresql.org)
+* The task scheduler [celeryproject](https://docs.celeryproject.org/en/stable/getting-started/introduction.html)
+* The task Queue [redis](https://redislabs.com)
+* The rest framework for django [django-rest-framework](https://www.django-rest-framework.org/tutorial/quickstart/)
+* User Authentication layer [django-rest-framework-jwt](https://jpadilla.github.io/django-rest-framework-jwt/)
+* The [swagger generator](https://drf-yasg.readthedocs.io/en/stable/readme.html)
+* Monitor the task scheduler with [flower](https://flower.readthedocs.io/en/latest/)
+* A better admin [grappelli](https://grappelliproject.com/)
+* Serving the static file for the django admin with [whitenoise](http://whitenoise.evans.io/en/stable/)
+* Monitoring the django app with [prometheus](https://prometheus.io/docs/introduction/overview/)
+* A dashboard for Prometheus [grafana](https://grafana.com/)
+* Django metrics for prometheues [django-prometheus](https://github.com/korfuri/django-prometheus)
+* [Docker](https://www.docker.com/)
+
+### Other references for the project
+* [how-to-use-jwt-authentication-with-django-rest-framework](https://simpleisbetterthancomplex.com/tutorial/2018/12/19/how-to-use-jwt-authentication-with-django-* rest-framework.html)
+* [monitoring](https://www.sipios.com/blog-tech/monitoring)
+* [django prometheus docker compose](https://github.com/vegasbrianc/prometheus)
+* [Docker_Prometheus_Grafana](https://www.bogotobogo.com/DevOps/Docker/Docker_Prometheus_Grafana.php)
+* [pruning](https://docs.docker.com/config/pruning/)
+
+

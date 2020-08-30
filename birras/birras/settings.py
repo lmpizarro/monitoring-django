@@ -88,6 +88,7 @@ db_host = 'localhost'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 '''
+just to begin the project
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
