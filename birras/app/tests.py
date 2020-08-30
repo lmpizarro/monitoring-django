@@ -3,7 +3,7 @@ from app.services import boxs_to_buy
 from django.urls import reverse
 import json
 import requests
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 import pytz
 
 from app.models import MeetUP
@@ -30,6 +30,10 @@ class ServiceTest(TestCase):
                       {'name': 'monthly meeting 2',
                        'meet_date': now + timedelta(days=30),
                        'place': 'place1',
+                       'description': 'nice monthly meeting'},
+                      {'name': 'monthly meeting 3',
+                       'meet_date': now - timedelta(days=2),
+                       'place': 'place3',
                        'description': 'nice monthly meeting'},
         ]
 
@@ -118,4 +122,9 @@ class ServiceTest(TestCase):
     def test_meetups_all(self):
         meetups = MeetUP.objects.all()
 
-        self.assertEqual(meetups.count(), 2)
+        self.assertEqual(meetups.count(), 3)
+
+
+    def test_meetups_today(self):
+
+        today = date.today().replace(tzinfo=pytz.utc)

@@ -24,9 +24,9 @@ SECRET_KEY = '#ghw9(*tnt2d4508x!1su!knm*ud2n7l0-&y&zt)8yj)q4w73a'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-DOCKER = True
+DOCKER = False
 
-ALLOWED_HOSTS = ['web']
+ALLOWED_HOSTS = ['web', 'localhost']
 
 
 # Application definition
