@@ -1,6 +1,8 @@
 import requests
 import time
 import json
+from datetime import datetime, date, timedelta
+import pytz
 
 be_url = "http://localhost:8080/{}"
 header = {'Content-type': 'application/json'}
@@ -64,10 +66,44 @@ def getMeetUpDetails(meetup_id):
 def getMeetUpsToday():
     url_meetup_today = be_url.format("api/get_meetups_today/")
   
+    
     response = requests.get(url_meetup_today, headers=header)
     
     return response.json()
 
+def create_meetup():
+    today = datetime.combine(date.today(), datetime.min.time()).replace(tzinfo=pytz.UTC)
+    delta = timedelta(days=30, hours=18)
+    meetupday = today + delta
+    
+    url_create_meetup = be_url.format("api/create_meetup/")
+    data = {'name': 'python meetup about django', 
+            'meet_date': str(meetupday),
+            'place': 'just the office behind us',
+            'description': 'we will discuss the improvements to django admin'}
+            
+    response_create = requests.request('POST', url_create_meetup, data=json.dumps(data), headers=header)
+    
+    return response_create.json()
+
+
+
+def create_meeter():
+    
+    url_create_meeter = be_url.format("api/create_meeter/")
+    data = {'email': 'algun_meeter@gmail.com', 'name': 'algun meeter'}
+    response_create = requests.request('POST', url_create_meeter, data=json.dumps(data), headers=header)
+    
+    return response_create.json()
+
+  
+def subscribe_meetup():
+    url_subscribe = be_url.format("api/subscribe_meetup/")
+    data = {'email': 'algun_meeter@gmail.com', 'meetup_id': 7}
+    response_create = requests.request('POST', url_subscribe, data=json.dumps(data), headers=header)
+    
+    return response_create.json()
+    
 
 def print_out(out_, mess):
     print(f'{mess}\n{out_}\n')    
@@ -86,6 +122,12 @@ def main():
     print_out(getMeetUpDetails(6), 'getMeetUpDetails')
     
     print_out(getMeetUpsToday(), 'getMeetUpsToday')
+
+    # print_out(create_meetup(), 'create_meetup')    
+    
+    # print_out(create_meeter(), 'create_meeter')
+    
+    print_out(subscribe_meetup(), 'subscribe_meetup')    
     
 if __name__ == '__main__':
     main()

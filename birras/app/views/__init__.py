@@ -10,7 +10,9 @@ class HelloBeerService(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):
-        data = {'error': False, 'message': 'Hello, I am the Beer Service!'}
+        data = {'error': False,
+                'message': 'Hello, I am the Beer Service!',
+                'endpoint': 'hello_beer'}
 
         return Response(data)
 
@@ -22,7 +24,7 @@ class GetWeatherTemperature(APIView):
         WS = Weather()
 
         temperature = WS.call_weather_api()
-
+        temperature['endpoint'] = 'temperature'
         return Response(temperature)
 
 
@@ -47,4 +49,5 @@ class GetBottlesByPerson(APIView):
         else:
             data['error'] = True
 
+        data['endpoint'] = 'bottles_by_person'
         return Response(data)

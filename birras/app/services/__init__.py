@@ -2,7 +2,7 @@ from django.conf import settings
 import math
 from datetime import datetime
 import pytz
-from app.models import MeetUP
+from app.models import MeetUP, Meeter
 from datetime import date, timedelta
 from app.services.weather import Weather
 from birras import settings
@@ -94,3 +94,20 @@ class MeetUPInterface:
 
 
         return details
+
+
+    def CreateMeetUP(self, data):
+        try:
+            model = MeetUP.objects.create(**data)
+        except Exception as e:
+            return None
+
+        return model.id
+
+    def CreateMeeter(self, data):
+        try:
+            model = Meeter.objects.create(**data)
+        except Exception as e:
+            return None
+
+        return model.id

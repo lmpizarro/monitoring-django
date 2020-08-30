@@ -32,6 +32,9 @@ urlpatterns = [
     path('getMeetUps/', meeters.GetMeetupList.as_view(), name='getMeetUps'),
     path('get_meetup_details/<int:pk>/', meeters.GetMeetupDetails.as_view(), name='get_meetup_details'),
     path('get_meetups_today/', meeters.GetMeetUpsToday.as_view(), name='get_meetups_today'),
+    path('create_meetup/', meeters.CreateMeetup.as_view(), name='create_meetup'),
+    path('create_meeter/', meeters.CreateMeeter.as_view(), name='create_meeter'),
+    path('subscribe_meetup/', meeters.SubscribeMeetup.as_view(), name='subscribe_meetup'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
