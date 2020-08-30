@@ -127,4 +127,6 @@ class ServiceTest(TestCase):
 
     def test_meetups_today(self):
 
-        today = date.today().replace(tzinfo=pytz.utc)
+        today = date.today()
+
+        meetups = MeetUP.objects.filter(meet_date=today)

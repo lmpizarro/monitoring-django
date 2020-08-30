@@ -78,14 +78,32 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'birras.wsgi.application'
 
+db_name = 'birras'
+db_user = 'birras'
+db_pass = 'birras'
+db_port = '5432'
+db_host = 'localhost'
+
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+'''
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': db_name,
+        'USER': db_user,
+        'PASSWORD': db_pass,
+        "HOST": db_host,
+        'PORT': db_port,
     }
 }
 

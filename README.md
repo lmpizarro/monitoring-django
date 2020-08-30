@@ -41,6 +41,28 @@ as a user I want to check in a meetup (to register that I was there)
 ## Run the project
 
 
+### Create the database
+
+```
+$ sudo su - postgres
+```
+```
+$ psql
+```
+
+```
+CREATE DATABASE birras;
+CREATE USER birras WITH PASSWORD 'birras';
+ALTER ROLE birras SET client_encoding TO 'utf8';
+ALTER ROLE birras SET default_transaction_isolation TO 'read committed';
+ALTER ROLE birras SET timezone TO 'UTC';
+GRANT ALL PRIVILEGES ON DATABASE birras TO birras;
+ALTER USER birras CREATE DB;
+\q
+
+```
+
+
 Clone the repo
 
 ``` 
@@ -54,7 +76,6 @@ $ python3 -m venv venv
 ```
 
 Activate de Python virtual evironment
-
 ```
 $ source venv/bin/activate
 ```
