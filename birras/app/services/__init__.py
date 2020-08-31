@@ -110,7 +110,6 @@ class MeetUPInterface:
             model = MeetUP.objects.get(pk=pk)
             for meeter in model.meeters.all():
                 send_notification_delete_meetup.delay(meeter.email)
-                print(f'SEND NOTIFICATION TO {meeter}')
         except Exception as e:
             print(f'DeleteMeetUp ERROR {e}')
             return None
@@ -138,7 +137,6 @@ class MeetUPInterface:
 
         try:
             model_meetup: MeetUP = MeetUP.objects.get(pk=request_data['meetup_id'])
-            data['message'] = 'RELATION_MEETUP_MEETER_CREATED'
         except Exception as e:
             message = 'NO_MEETUP_IN_DB'
             data['message'] = message
@@ -167,7 +165,6 @@ class MeetUPInterface:
 
         try:
             model_meetup: MeetUP = MeetUP.objects.get(pk=request_data['meetup_id'])
-            data['message'] = 'RELATION_MEETUP_MEETER_CREATED'
         except Exception as e:
             message = 'NO_MEETUP_IN_DB'
             data['message'] = message
@@ -194,7 +191,6 @@ class MeetUPInterface:
 
         try:
             model_meetup: MeetUP = MeetUP.objects.get(pk=request_data['meetup_id'])
-            data['message'] = 'RELATION_MEETUP_MEETER_CREATED'
         except Exception as e:
             message = 'NO_MEETUP_IN_DB'
             data['message'] = message
