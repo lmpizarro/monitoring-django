@@ -173,6 +173,10 @@ CELERY_BEAT_SCHEDULE = {
     #     'task': 'send_notification',
     #     'schedule': crontab(minute=0, hour=0,),
     #    },
+    'send-notification-week-meetup': {
+        'task': 'week_meetups',
+        'schedule': crontab(minute=0, hour=0, day_of_week='monday'),
+    },
 }
 
 

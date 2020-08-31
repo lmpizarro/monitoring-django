@@ -24,8 +24,9 @@ schema_view = get_schema_view(
 
 
 urlpatterns = [
-    path('hello/', views.HelloBeerService.as_view(), name='hellobeer'),
     url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+
+    path('hello/', views.HelloBeerService.as_view(), name='hellobeer'),
     path('temperature/', views.GetWeatherTemperature.as_view(), name='gettemperature'),
     path('bottlesByPerson/', views.GetBottlesByPerson.as_view(), name='bottleByPerson'),
     path('getMeetUps/', meeters.GetMeetupList.as_view(), name='getMeetUps'),

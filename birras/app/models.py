@@ -23,8 +23,6 @@ class MeetUP(models.Model):
         return f'{self.name} {self.meet_date}'
 
 
-
-
 class CurrentTemperature(models.Model):
       date_time = models.DateTimeField('time', default=timezone.now, null=True)
       temp = models.FloatField('Current Temperature')
