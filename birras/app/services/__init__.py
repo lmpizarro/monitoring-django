@@ -6,6 +6,7 @@ from app.models import MeetUP, Meeter
 from datetime import date, timedelta
 from app.services.weather import Weather
 from birras import settings
+from app.tasks import send_notification_delete_meetup
 
 class TemperatureLogic:
 
@@ -108,6 +109,7 @@ class MeetUPInterface:
         try:
             model = MeetUP.objects.get(pk=pk)
             for meeter in model.meeters.all():
+                send_notification_delete_meetup.delay(meeter.email)
                 print(f'SEND NOTIFICATION TO {meeter}')
         except Exception as e:
             print(f'DeleteMeetUp ERROR {e}')

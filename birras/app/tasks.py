@@ -10,7 +10,6 @@ def newtemperature():
     updatetemperature()
     return 'NEW TEMPERATURE'
  
-@task(name='send_notification')
-def send_notification():
-     print('Here I am')
-     return "NOTIFICATION"
+@shared_task
+def send_notification_delete_meetup(email):
+     return f"NOTIFICATION DELETE MEETUP {email}"

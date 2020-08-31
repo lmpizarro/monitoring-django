@@ -169,10 +169,10 @@ CELERY_BEAT_SCHEDULE = {
        'task': 'newtemperature',
        'schedule': 10.0,
     },
-    'send-notification-at-midnight': { 
-         'task': 'send_notification', 
-         'schedule': crontab(minute=0, hour=0,),
-        },          
+    #'send-notification-at-midnight': {
+    #     'task': 'send_notification',
+    #     'schedule': crontab(minute=0, hour=0,),
+    #    },
 }
 
 
