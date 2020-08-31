@@ -73,11 +73,11 @@ def getMeetUpsToday():
 
 def create_meetup():
     today = datetime.combine(date.today(), datetime.min.time()).replace(tzinfo=pytz.UTC)
-    delta = timedelta(days=30, hours=18)
+    delta = timedelta(days=60, hours=18)
     meetupday = today + delta
     
-    url_create_meetup = be_url.format("api/create_meetup/")
-    data = {'name': 'python meetup about django', 
+    url_create_meetup = be_url.format("api/Meetup/")
+    data = {'name': 'python meetup about django3', 
             'meet_date': str(meetupday),
             'place': 'just the office behind us',
             'description': 'we will discuss the improvements to django admin'}
@@ -87,9 +87,7 @@ def create_meetup():
     return response_create.json()
 
 
-
-def create_meeter():
-    
+def create_meeter():    
     url_create_meeter = be_url.format("api/create_meeter/")
     data = {'email': 'algun_meeter@gmail.com', 'name': 'algun meeter'}
     response_create = requests.request('POST', url_create_meeter, data=json.dumps(data), headers=header)
@@ -104,6 +102,22 @@ def subscribe_meetup():
     
     return response_create.json()
     
+def unsubscribe_meetup():
+    url_unsubscribe = be_url.format("api/unsubscribe_meetup/")
+    data = {'email': 'algun_meeter@gmail.com', 'meetup_id': 8}
+    response_create = requests.request('POST', url_unsubscribe, data=json.dumps(data), headers=header)
+    
+    return response_create.json()
+
+def delete_meetup():
+    pk = 8
+    endpoint = f'api/Meetup/{pk}/'
+    
+    url_delete_meetup = be_url.format(endpoint)
+    print(url_delete_meetup)
+
+    response_delete = requests.delete(url_delete_meetup,  headers=header)
+    return response_delete.json()
 
 def print_out(out_, mess):
     print(f'{mess}\n{out_}\n')    
@@ -128,6 +142,10 @@ def main():
     # print_out(create_meeter(), 'create_meeter')
     
     print_out(subscribe_meetup(), 'subscribe_meetup')    
+
+    print_out(unsubscribe_meetup(), 'unsubscribe_meetup')    
+    
+    print(delete_meetup(), 'delete_meetup')
     
 if __name__ == '__main__':
     main()

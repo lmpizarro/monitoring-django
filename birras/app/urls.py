@@ -23,7 +23,6 @@ schema_view = get_schema_view(
 )
 
 
- 
 urlpatterns = [
     path('hello/', views.HelloBeerService.as_view(), name='hellobeer'),
     url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
@@ -32,9 +31,13 @@ urlpatterns = [
     path('getMeetUps/', meeters.GetMeetupList.as_view(), name='getMeetUps'),
     path('get_meetup_details/<int:pk>/', meeters.GetMeetupDetails.as_view(), name='get_meetup_details'),
     path('get_meetups_today/', meeters.GetMeetUpsToday.as_view(), name='get_meetups_today'),
-    path('create_meetup/', meeters.CreateMeetup.as_view(), name='create_meetup'),
+
+    path('Meetup/', meeters.MeetupDetail.as_view(), name='create_meetup'),
+    path('Meetup/<int:pk>/', meeters.MeetupDetail.as_view(), name='delete_meetup'),
+
     path('create_meeter/', meeters.CreateMeeter.as_view(), name='create_meeter'),
     path('subscribe_meetup/', meeters.SubscribeMeetup.as_view(), name='subscribe_meetup'),
+    path('unsubscribe_meetup/', meeters.UnsubscribeMeetUp.as_view(), name='unsubscribe_meetup'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

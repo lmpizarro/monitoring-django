@@ -48,7 +48,7 @@ class GetMeetUpsToday(APIView):
         return Response(data)
 
 
-class CreateMeetup(APIView):
+class MeetupDetail(APIView):
     permission_classes = (IsAuthenticated,)
     def post(self, request, format=None):
         MI = MeetUPInterface()
@@ -59,6 +59,15 @@ class CreateMeetup(APIView):
         if meetup_id != None:
             data['error'] = False
             data['meeter_id'] = meetup_id
+
+        return Response(data)
+
+    def delete(self, request, pk, format=None):
+        MI = MeetUPInterface()
+
+        data = {'error': True, 'pk': pk}
+
+        MI.DeleteMeetUp(pk)
 
         return Response(data)
 
@@ -78,7 +87,6 @@ class CreateMeeter(APIView):
 
 class SubscribeMeetup(APIView):
     def post(self, request, format=None):
-        print(request.data)
 
         MI = MeetUPInterface()
 
@@ -90,3 +98,17 @@ class SubscribeMeetup(APIView):
             data['message'] = ret['message']
 
         return Response(data)
+
+
+class UnsubscribeMeetUp(APIView):
+    def post(self, request, format=None):
+        print(request.data)
+
+        data = {'endpoint': 'unsubscribe_meet_up', 'error': True}
+        MI = MeetUPInterface()
+        ret = MI.UnsubscribeMeetUp(request.data)
+
+        if not ret['error']:
+            data['error'] = False
+            data['message'] = ret['message']
+        return Response(request.data)

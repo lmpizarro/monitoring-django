@@ -95,7 +95,6 @@ class MeetUPInterface:
 
         return details
 
-
     def CreateMeetUP(self, data):
         try:
             model = MeetUP.objects.create(**data)
@@ -103,6 +102,19 @@ class MeetUPInterface:
             return None
 
         return model.id
+
+    def DeleteMeetUp(self, pk):
+        print('SERVICES', pk)
+        try:
+            model = MeetUP.objects.get(pk=pk)
+            for meeter in model.meeters.all():
+                print(f'SEND NOTIFICATION TO {meeter}')
+        except Exception as e:
+            print(f'DeleteMeetUp ERROR {e}')
+            return None
+
+        return True
+
 
     def CreateMeeter(self, data):
         try:
@@ -114,12 +126,9 @@ class MeetUPInterface:
 
     def SubscribeMeetUp(self, request_data):
 
-        print(request_data)
-
         data = {'error': True}
         try:
             model_meeter: Meeter = Meeter.objects.get(email=request_data['email'])
-            print('model_meeter')
         except Exception as e:
             message = 'NO_MEETER_IN_DB'
             data['message'] = message
@@ -128,7 +137,6 @@ class MeetUPInterface:
         try:
             model_meetup: MeetUP = MeetUP.objects.get(pk=request_data['meetup_id'])
             data['message'] = 'RELATION_MEETUP_MEETER_CREATED'
-            print('model_meetup')
         except Exception as e:
             message = 'NO_MEETUP_IN_DB'
             data['message'] = message
@@ -137,10 +145,38 @@ class MeetUPInterface:
         try:
             a = model_meetup.meeters.add(model_meeter)
             data['error'] = False
-            print('relation')
             return data
         except Exception as e:
             message = 'MEETUP-MEETER_RELATION_NOT_CREATED'
             data['message'] = message
-            print(f'NO relation{e}')
             return data
+
+
+    def UnsubscribeMeetUp(self, request_data):
+        print(request_data)
+
+        data = {'error': True}
+        try:
+            model_meeter: Meeter = Meeter.objects.get(email=request_data['email'])
+        except Exception as e:
+            message = 'NO_MEETER_IN_DB'
+            data['message'] = message
+            return data
+
+        try:
+            model_meetup: MeetUP = MeetUP.objects.get(pk=request_data['meetup_id'])
+            data['message'] = 'RELATION_MEETUP_MEETER_CREATED'
+        except Exception as e:
+            message = 'NO_MEETUP_IN_DB'
+            data['message'] = message
+            return data
+
+        try:
+            a = model_meetup.meeters.remove(model_meeter)
+            data['error'] = False
+            return data
+        except Exception as e:
+            message = 'MEETUP-MEETER_RELATION_NOT_CREATED'
+            data['message'] = message
+            return data
+
