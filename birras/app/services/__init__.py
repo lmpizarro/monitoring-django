@@ -182,3 +182,29 @@ class MeetUPInterface:
             data['message'] = message
             return data
 
+    def CheckinMeetUp(self, request_data):
+
+        data = {'error': True}
+        try:
+            model_meeter: Meeter = Meeter.objects.get(email=request_data['email'])
+        except Exception as e:
+            message = 'NO_MEETER_IN_DB'
+            data['message'] = message
+            return data
+
+        try:
+            model_meetup: MeetUP = MeetUP.objects.get(pk=request_data['meetup_id'])
+            data['message'] = 'RELATION_MEETUP_MEETER_CREATED'
+        except Exception as e:
+            message = 'NO_MEETUP_IN_DB'
+            data['message'] = message
+            return data
+
+        try:
+            a = model_meetup.checkin.add(model_meeter)
+            data['error'] = False
+            return data
+        except Exception as e:
+            message = f'MEETUP-MEETER_RELATION_NOT_CREATED{e}'
+            data['message'] = message
+            return data

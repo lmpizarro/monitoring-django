@@ -38,6 +38,8 @@ urlpatterns = [
     path('create_meeter/', meeters.CreateMeeter.as_view(), name='create_meeter'),
     path('subscribe_meetup/', meeters.SubscribeMeetup.as_view(), name='subscribe_meetup'),
     path('unsubscribe_meetup/', meeters.UnsubscribeMeetUp.as_view(), name='unsubscribe_meetup'),
+
+    path('checkin/', meeters.Checkin.as_view(), name='checkin_meetup')
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

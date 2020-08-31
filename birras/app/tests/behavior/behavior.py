@@ -1,5 +1,4 @@
 import requests
-import time
 import json
 from datetime import datetime, date, timedelta
 import pytz
@@ -26,12 +25,14 @@ def login(user='admin', password='admin'):
     
     return tokens
 
+
 def hello():
     url_hello = be_url.format("api/hello/")
 
     response = requests.get(url_hello, headers=header)
 
     return response.json()
+
 
 def temperature():
     url_temp = be_url.format("api/temperature/")
@@ -48,6 +49,7 @@ def bottlesByPerson():
     
     return(response.json())
 
+
 def getMeetUps():
     url_meetup = be_url.format("api/getMeetUps/")
 
@@ -63,6 +65,7 @@ def getMeetUpDetails(meetup_id):
     
     return response.json()
 
+
 def getMeetUpsToday():
     url_meetup_today = be_url.format("api/get_meetups_today/")
   
@@ -70,6 +73,7 @@ def getMeetUpsToday():
     response = requests.get(url_meetup_today, headers=header)
     
     return response.json()
+
 
 def create_meetup():
     today = datetime.combine(date.today(), datetime.min.time()).replace(tzinfo=pytz.UTC)
@@ -101,13 +105,15 @@ def subscribe_meetup():
     response_create = requests.request('POST', url_subscribe, data=json.dumps(data), headers=header)
     
     return response_create.json()
-    
+
+
 def unsubscribe_meetup():
     url_unsubscribe = be_url.format("api/unsubscribe_meetup/")
     data = {'email': 'algun_meeter@gmail.com', 'meetup_id': 8}
     response_create = requests.request('POST', url_unsubscribe, data=json.dumps(data), headers=header)
     
     return response_create.json()
+
 
 def delete_meetup():
     pk = 8
@@ -119,9 +125,19 @@ def delete_meetup():
     response_delete = requests.delete(url_delete_meetup,  headers=header)
     return response_delete.json()
 
+
+def checkin():
+    url_checkin = be_url.format("api/checkin/")
+    data = {'email': 'rosa15@alba.com', 'meetup_id': 8}
+    response_create = requests.request('POST', url_checkin, data=json.dumps(data), headers=header)
+
+    return response_create.json()
+
+
 def print_out(out_, mess):
     print(f'{mess}\n{out_}\n')    
-    
+
+
 def main():
     print_out(login(), 'LOGIN')
     
@@ -145,7 +161,11 @@ def main():
 
     print_out(unsubscribe_meetup(), 'unsubscribe_meetup')    
     
-    print(delete_meetup(), 'delete_meetup')
+    print_out(delete_meetup(), 'delete_meetup')
+
+    print_out(checkin(), 'checkin')
     
 if __name__ == '__main__':
-    main()
+    # main()
+    print_out(checkin(), 'checkin')
+

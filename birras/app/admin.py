@@ -33,3 +33,4 @@ class MeeterAdmin(admin.ModelAdmin):
 class CurrentTemperatureAdmin(admin.ModelAdmin):
     list_display = ['id', 'date_time', 'temp', 'temp_min', 'temp_max', 'feels_like']
 
+

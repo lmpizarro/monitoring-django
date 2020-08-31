@@ -112,3 +112,14 @@ class UnsubscribeMeetUp(APIView):
             data['error'] = False
             data['message'] = ret['message']
         return Response(request.data)
+
+
+class Checkin(APIView):
+    def post(self, request, format=None):
+        data = {'endpoint': 'unsubscribe_meet_up', 'error': True, 'request': request.data}
+
+        MI = MeetUPInterface()
+
+        ret = MI.CheckinMeetUp(request.data)
+
+        return Response(data)
