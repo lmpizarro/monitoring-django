@@ -8,6 +8,7 @@ from app.services.weather import Weather
 from birras import settings
 from app.tasks import send_notification_delete_meetup
 from app.services.emailsender import send_register_confirmation_email
+from app.services.emailsender import send_register_delete_confirmatiom
 
 class TemperatureLogic:
 
@@ -117,17 +118,34 @@ class MeetUPInterface:
 
         return True
 
-
     def CreateMeeter(self, data):
         try:
             model = Meeter.objects.create(**data)
         except Exception as e:
-            return None
+            data['error'] = True
+            data['message'] = str(e)
+            return data
 
-        # TODO send notification via email
+        # send requiere confirmation  via email
         send_register_confirmation_email(model.email)
 
-        return model.id
+        data['error'] = False
+        data['meeter_id'] = model.id
+        data['message'] = 'MEETER CREATED'
+
+        return data
+
+    def ConfirmCreateMeeter(self, email):
+
+        data = {'error': True}
+        try:
+            model: Meeter = Meeter.objects.get(email=email)
+            model.create_confirmation = True
+            data['error'] = False
+        except Exception as e:
+            pass
+
+        return data
 
     def SubscribeMeetUp(self, request_data):
 
@@ -209,8 +227,24 @@ class MeetUPInterface:
             data['message'] = message
             return data
 
-    def ConfirmCreateMeeter(self, request_data):
-        print(request_data)
 
-    def ConfirmDeleteMeeter(self, request_data):
-        print(request_data)
+    def ConfirmDeleteMeeter(self, email):
+        data = {'error': True, 'email': email}
+
+        try:
+            model = Meeter.objects.get(email=email)
+            model_id = model.id
+            model.delete()
+            data['message'] = 'MEETER DELETED'
+            data['meeter_id'] = model_id
+            data['error'] = False
+        except Exception as e:
+            data['message'] = str(e)
+
+        return data
+
+
+    def DeleteMeeter(self, request_data):
+        data = send_register_delete_confirmatiom(request_data['email'])
+
+        return data

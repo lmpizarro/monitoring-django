@@ -191,3 +191,5 @@ GRAPPELLI_ADMIN_TITLE='Birras'
 EMAIL_HOST='email.com'
 EMAIL_HOST=22
 EMAIL_FROM='thebirrasmeetup.com'
+
+SERVER_HOST = os.environ.get('SERVERHOST', 'http://localhost:8080/')

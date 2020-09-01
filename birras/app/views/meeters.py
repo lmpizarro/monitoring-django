@@ -72,13 +72,46 @@ class MeetupDetail(APIView):
 class CreateMeeter(APIView):
     def post(self, request, format=None):
 
-        meeter_id = meetup_interface.CreateMeeter(request.data)
+        data = meetup_interface.CreateMeeter(request.data)
 
-        data = {'endpoint': 'create_meeter', 'error': True}
-        if meeter_id != None:
-            data['error'] = False
-            data['meeter_id'] = meeter_id
+        data['endpoint'] = 'create_meeter'
 
+        return Response(data)
+
+
+class ConfirmCreateMeeter(APIView):
+
+    def get(self, request, email, format=None):
+
+        data = {'endpoint': 'confirm_create_meeter', 'error': True, 'email': email}
+
+        err = meetup_interface.ConfirmCreateMeeter(email)
+
+        data['error'] = err['error']
+
+        return Response(data)
+
+
+class DeleteMeeter(APIView):
+
+    def post(self, request, format=None):
+        data = {'endpoint': 'delete_meeter', 'error': True, 'request': request.data}
+
+        ret = meetup_interface.DeleteMeeter(request.data)
+
+        data['error'] = ret['error']
+        return Response(data)
+
+
+class ConfirmDeleteMeeter(APIView):
+
+    def get(self, request, email, format=None):
+        data = {'endpoint': 'confirm_delete_meeter', 'error': True, 'request': email}
+
+        ret = meetup_interface.ConfirmDeleteMeeter(email)
+
+        data['error'] = ret['error']
+        data['message'] = ret['message']
         return Response(data)
 
 
@@ -115,27 +148,6 @@ class Checkin(APIView):
 
 
         ret = meetup_interface.CheckinMeetUp(request.data)
-
-        return Response(data)
-
-
-class ConfirmCreateMeeter(APIView):
-
-    def post(self, request, format=None):
-        data = {'endpoint': 'confirm_create_meeter', 'error': True, 'request': request.data}
-
-
-        ret = meetup_interface.ConfirmCreateMeeter(request.data)
-
-        return Response(data)
-
-
-class ConfirmDeleteMeeter(APIView):
-
-    def post(self, request, format=None):
-        data = {'endpoint': 'confirm_delete_meeter', 'error': True, 'request': request.data}
-
-        ret = meetup_interface.ConfirmDeleteMeeter(request.data)
 
         return Response(data)
 

@@ -68,12 +68,6 @@ def create_meetup():
     return response_create.json()
 
 
-def create_meeter():    
-    url_create_meeter = be_url.format("api/create_meeter/")
-    data = {'email': 'algun_meeter@gmail.com', 'name': 'algun meeter'}
-    response_create = requests.request('POST', url_create_meeter, data=json.dumps(data), headers=header)
-    
-    return response_create.json()
 
   
 def subscribe_meetup():
@@ -111,20 +105,46 @@ def checkin():
     return response_create.json()
 
 
-def confirm_delete_meeter():
-    url_confirm_delete = utils.be_url.format("api/confirm_delete_meeter/")
-    data = {'email': 'rosa15@alba.com'}
-    response = requests.request('POST', url_confirm_delete, data=json.dumps(data), headers=header)
+def create_meeter(email='algun_meeter@gmail.com', name='algun meeter'):
+    url_create_meeter = be_url.format("api/create_meeter/")
+    data = {'email': email, 'name': name}
+    response_create = requests.request('POST', url_create_meeter, data=json.dumps(data), headers=header)
+
+    return response_create.json()
+
+
+def confirm_create_meeter(email):
+    endpoint = f"api/confirm_create_meeter/{email}/"
+    url_confirm_create = utils.be_url.format(endpoint)
+    response = requests.request('GET', url_confirm_create, headers=header)
 
     return response.json()
 
 
-def confirm_create_meeter():
-    url_confirm_create = utils.be_url.format("api/confirm_create_meeter/")
-    data = {'email': 'rosa15@alba.com'}
-    response = requests.request('POST', url_confirm_create, data=json.dumps(data), headers=header)
+def delete_meeter(email='pepe_alcorta@pepe.com'):
+    url_delete_meeter = be_url.format("api/delete_meeter/")
+    data = {'email': email}
+    response_create = requests.request('POST', url_delete_meeter, data=json.dumps(data), headers=header)
+
+    return response_create.json()
+
+
+def confirm_delete_meeter(email):
+    endpoint = f"api/confirm_delete_meeter/{email}/"
+    url_confirm_delete = utils.be_url.format(endpoint)
+    response = requests.request('GET', url_confirm_delete, headers=header)
 
     return response.json()
+
+
+def create_delete_meeter_sequence():
+    # create-delete meeter through email confirmation
+    utils.print_out(create_meeter(email='pepe_alcorta@pepe.com', name='pepe alcorta'), 'create_meeter')
+
+    utils.print_out(confirm_create_meeter(email='pepe_alcorta@pepe.com'), 'confirm_create_meeter')
+
+    utils.print_out(delete_meeter(email='pepe_alcorta@pepe.com'), 'delete_meeter')
+    utils.print_out(confirm_delete_meeter(email='pepe_alcorta@pepe.com'), 'confirm_delete_meeter')
 
 
 def main():
@@ -137,9 +157,7 @@ def main():
     utils.print_out(getMeetUpsToday(), 'getMeetUpsToday')
 
     # print_out(create_meetup(), 'create_meetup')    
-    
-    # print_out(create_meeter(), 'create_meeter')
-    
+
     utils.print_out(subscribe_meetup(), 'subscribe_meetup')
 
     utils.print_out(unsubscribe_meetup(), 'unsubscribe_meetup')
@@ -147,10 +165,13 @@ def main():
     utils.print_out(delete_meetup(), 'delete_meetup')
 
     utils.print_out(checkin(), 'checkin')
-    
+
+
+
 if __name__ == '__main__':
     # main()
-    utils.print_out(checkin(), 'checkin')
-    utils.print_out(confirm_create_meeter(), 'create_meeter')
-    utils.print_out(confirm_delete_meeter(), 'delete_meeter')
+    # utils.print_out(checkin(), 'checkin')
+
+    create_delete_meeter_sequence()
+
 
