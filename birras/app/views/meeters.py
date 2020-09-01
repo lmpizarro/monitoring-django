@@ -50,6 +50,7 @@ class GetMeetUpsToday(APIView):
 
 class MeetupDetail(APIView):
     permission_classes = (IsAuthenticated,)
+
     def post(self, request, format=None):
         MI = MeetUPInterface()
 

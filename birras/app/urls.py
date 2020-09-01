@@ -32,10 +32,14 @@ urlpatterns = [
     # Devuelve la cantidad de botellas por personas a comprar en el momento
     path('bottlesByPerson/', views.GetBottlesByPerson.as_view(), name='bottleByPerson'),
 
-    # TODO: bottles_meeters
-    # TODO: bottles meeters temperature
+    # devuelve las bottles_dada una cantidad meeters with the actual temperature
+    path('get_bottles_meeters/<int:meeters>/', views.GetBottlesMeeters.as_view(), name='get_bottles_meeters'),
+
+    # devuelve las bottles_dada una cantidad meeters with an arbitrary temperature
+    path('get_bottles_meeters_temp/', views.GetBottlesMeetersTemp.as_view(), name='get_bottles_meeters_temp'),
 
     path('get_meetups_today/', meeters.GetMeetUpsToday.as_view(), name='get_meetups_today'),
+
 
     # get a list of active meetups
     path('getMeetUps/', meeters.GetMeetupList.as_view(), name='getMeetUps'),

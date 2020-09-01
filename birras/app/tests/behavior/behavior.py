@@ -2,6 +2,7 @@ import requests
 import json
 from datetime import datetime, date, timedelta
 import pytz
+import utils
 
 be_url = "http://localhost:8080/{}"
 header = {'Content-type': 'application/json'}
@@ -17,37 +18,14 @@ def login(user='admin', password='admin'):
     url = be_url.format('api/token/')
 
     payload = {'username': user, 'password': password}
-    headers= {}
+    headers = {}
 
-    response = requests.post(url, headers=headers, data = payload)
+    response = requests.post(url, headers=headers, data=payload)
     tokens = response.json()
     set_header(tokens['access'])
     
     return tokens
 
-
-def hello():
-    url_hello = be_url.format("api/hello/")
-
-    response = requests.get(url_hello, headers=header)
-
-    return response.json()
-
-
-def temperature():
-    url_temp = be_url.format("api/temperature/")
-
-    response = requests.get(url_temp, headers=header)
-    
-    return response.json()
-
-
-def bottlesByPerson():
-    url_bott = be_url.format("api/bottlesByPerson/")
-
-    response = requests.get(url_bott, headers=header)
-    
-    return(response.json())
 
 
 def getMeetUps():
@@ -141,10 +119,8 @@ def print_out(out_, mess):
 def main():
     print_out(login(), 'LOGIN')
     
-    print_out(hello(), 'HELLO')
-        
-    print_out(temperature(), 'TEMPERATURA')
-            
+
+
     print_out(bottlesByPerson(), 'bottles')
     
     print_out(getMeetUps(), 'GETMEETUPS')
