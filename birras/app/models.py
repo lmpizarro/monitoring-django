@@ -6,6 +6,7 @@ from django.utils import timezone
 class Meeter(models.Model):
     email = models.EmailField(null=False, unique=True)
     name = models.CharField('Meeter Name', max_length=200, null=True)
+    create_confirmation = models.BooleanField(default=False)
 
     def __str__(self):
         return self.email

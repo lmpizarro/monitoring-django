@@ -24,6 +24,7 @@ def send_emails_week_meetups(email_tuple):
     email = email_tuple[0]
     meetup_list = email_tuple[1]
 
+    # Send an email notification of the meetups of the week to meeters
     send_meetup_notifications(email, meetup_list)
 
     return f'NOTIFICATION WEEK MEETUP {email}'

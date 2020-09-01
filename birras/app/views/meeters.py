@@ -123,3 +123,9 @@ class Checkin(APIView):
         ret = MI.CheckinMeetUp(request.data)
 
         return Response(data)
+
+class ConfirmCreateMeeter(APIView):
+    pass
+
+class ConfirmDeleteMeeter(APIView):
+    pass

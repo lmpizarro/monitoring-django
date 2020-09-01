@@ -10,3 +10,4 @@ flower
 django-grappelli
 django-prometheus
 psycopg2-binary==2.8.5
+jinja2

@@ -186,3 +186,8 @@ TEMP_MIN = 20
 TEMP_MAX = 24
 
 GRAPPELLI_ADMIN_TITLE='Birras'
+
+# Email configuration
+EMAIL_HOST='email.com'
+EMAIL_HOST=22
+EMAIL_FROM='thebirrasmeetup.com'

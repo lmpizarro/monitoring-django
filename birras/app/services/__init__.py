@@ -7,6 +7,7 @@ from datetime import date, timedelta
 from app.services.weather import Weather
 from birras import settings
 from app.tasks import send_notification_delete_meetup
+from app.services.emailsender import send_register_confirmation_email
 
 class TemperatureLogic:
 
@@ -122,6 +123,9 @@ class MeetUPInterface:
             model = Meeter.objects.create(**data)
         except Exception as e:
             return None
+
+        # TODO send notification via email
+        send_register_confirmation_email(model.email)
 
         return model.id
 

@@ -27,19 +27,48 @@ urlpatterns = [
     url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 
     path('hello/', views.HelloBeerService.as_view(), name='hellobeer'),
+    # Devuelve la temperatura del momento
     path('temperature/', views.GetWeatherTemperature.as_view(), name='gettemperature'),
+    # Devuelve la cantidad de botellas por personas a comprar en el momento
     path('bottlesByPerson/', views.GetBottlesByPerson.as_view(), name='bottleByPerson'),
-    path('getMeetUps/', meeters.GetMeetupList.as_view(), name='getMeetUps'),
-    path('get_meetup_details/<int:pk>/', meeters.GetMeetupDetails.as_view(), name='get_meetup_details'),
+
+    # TODO: bottles_meeters
+    # TODO: bottles meeters temperature
+
     path('get_meetups_today/', meeters.GetMeetUpsToday.as_view(), name='get_meetups_today'),
 
+    # get a list of active meetups
+    path('getMeetUps/', meeters.GetMeetupList.as_view(), name='getMeetUps'),
+
+    # get the details of a meetup by pk
+    path('get_meetup_details/<int:pk>/', meeters.GetMeetupDetails.as_view(), name='get_meetup_details'),
+
+    # create a meetup: only admin
     path('Meetup/', meeters.MeetupDetail.as_view(), name='create_meetup'),
+
+    # delete a meetup by pk: only admin
     path('Meetup/<int:pk>/', meeters.MeetupDetail.as_view(), name='delete_meetup'),
 
+    # create a meeter(user)
     path('create_meeter/', meeters.CreateMeeter.as_view(), name='create_meeter'),
+
+    # TODO: a confirm create of a meeter, create_meeter send email with endpoint to confirm creation
+    path('confirm_create_meter/', meeters.ConfirmCreateMeeter.as_view(), name='confirm_create_meter'),
+
+
+    # TODO: meeter delete (a meeter can delete itself) with email and endpoint confirmation
+    path('confirm_delete_meter/', meeters.ConfirmDeleteMeeter.as_view(), name='confirm_create_meter'),
+
+    # meeter register to a meetup
     path('subscribe_meetup/', meeters.SubscribeMeetup.as_view(), name='subscribe_meetup'),
+
+    # TODO: a confirmation of subscription to a meetup??¿¿
+    # TODO: a confirmation of unsubscription to a meetup??¿¿
+
+    # meeter unsubscribe to a meetup
     path('unsubscribe_meetup/', meeters.UnsubscribeMeetUp.as_view(), name='unsubscribe_meetup'),
 
+    # meeter checkin a meetup
     path('checkin/', meeters.Checkin.as_view(), name='checkin_meetup')
 ]
 
