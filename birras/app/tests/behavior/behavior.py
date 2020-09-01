@@ -27,7 +27,6 @@ def login(user='admin', password='admin'):
     return tokens
 
 
-
 def getMeetUps():
     url_meetup = be_url.format("api/getMeetUps/")
 
@@ -112,36 +111,46 @@ def checkin():
     return response_create.json()
 
 
-def print_out(out_, mess):
-    print(f'{mess}\n{out_}\n')    
+def confirm_delete_meeter():
+    url_confirm_delete = utils.be_url.format("api/confirm_delete_meeter/")
+    data = {'email': 'rosa15@alba.com'}
+    response = requests.request('POST', url_confirm_delete, data=json.dumps(data), headers=header)
+
+    return response.json()
+
+
+def confirm_create_meeter():
+    url_confirm_create = utils.be_url.format("api/confirm_create_meeter/")
+    data = {'email': 'rosa15@alba.com'}
+    response = requests.request('POST', url_confirm_create, data=json.dumps(data), headers=header)
+
+    return response.json()
 
 
 def main():
-    print_out(login(), 'LOGIN')
-    
+    utils.print_out(login(), 'LOGIN')
 
-
-    print_out(bottlesByPerson(), 'bottles')
+    utils.print_out(getMeetUps(), 'GETMEETUPS')
     
-    print_out(getMeetUps(), 'GETMEETUPS')
+    utils.print_out(getMeetUpDetails(6), 'getMeetUpDetails')
     
-    print_out(getMeetUpDetails(6), 'getMeetUpDetails')
-    
-    print_out(getMeetUpsToday(), 'getMeetUpsToday')
+    utils.print_out(getMeetUpsToday(), 'getMeetUpsToday')
 
     # print_out(create_meetup(), 'create_meetup')    
     
     # print_out(create_meeter(), 'create_meeter')
     
-    print_out(subscribe_meetup(), 'subscribe_meetup')    
+    utils.print_out(subscribe_meetup(), 'subscribe_meetup')
 
-    print_out(unsubscribe_meetup(), 'unsubscribe_meetup')    
+    utils.print_out(unsubscribe_meetup(), 'unsubscribe_meetup')
     
-    print_out(delete_meetup(), 'delete_meetup')
+    utils.print_out(delete_meetup(), 'delete_meetup')
 
-    print_out(checkin(), 'checkin')
+    utils.print_out(checkin(), 'checkin')
     
 if __name__ == '__main__':
     # main()
-    print_out(checkin(), 'checkin')
+    utils.print_out(checkin(), 'checkin')
+    utils.print_out(confirm_create_meeter(), 'create_meeter')
+    utils.print_out(confirm_delete_meeter(), 'delete_meeter')
 

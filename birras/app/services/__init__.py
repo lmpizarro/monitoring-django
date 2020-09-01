@@ -208,3 +208,9 @@ class MeetUPInterface:
             message = f'MEETUP-MEETER_RELATION_NOT_CREATED{e}'
             data['message'] = message
             return data
+
+    def ConfirmCreateMeeter(self, request_data):
+        print(request_data)
+
+    def ConfirmDeleteMeeter(self, request_data):
+        print(request_data)

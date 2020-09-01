@@ -57,11 +57,10 @@ urlpatterns = [
     path('create_meeter/', meeters.CreateMeeter.as_view(), name='create_meeter'),
 
     # TODO: a confirm create of a meeter, create_meeter send email with endpoint to confirm creation
-    path('confirm_create_meter/', meeters.ConfirmCreateMeeter.as_view(), name='confirm_create_meter'),
-
+    path('confirm_create_meeter/', meeters.ConfirmCreateMeeter.as_view(), name='confirm_create_meter'),
 
     # TODO: meeter delete (a meeter can delete itself) with email and endpoint confirmation
-    path('confirm_delete_meter/', meeters.ConfirmDeleteMeeter.as_view(), name='confirm_create_meter'),
+    path('confirm_delete_meeter/', meeters.ConfirmDeleteMeeter.as_view(), name='confirm_delete_meter'),
 
     # meeter register to a meetup
     path('subscribe_meetup/', meeters.SubscribeMeetup.as_view(), name='subscribe_meetup'),

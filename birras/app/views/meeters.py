@@ -3,15 +3,16 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from app.services import MeetUPInterface
 
+meetup_interface = MeetUPInterface()
+
 
 class GetMeetupList(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):
 
-        MI = MeetUPInterface()
 
-        meetups = MI.getActiveMeetUps()
+        meetups = meetup_interface.getActiveMeetUps()
 
         return Response({'error': False, 'data': meetups, 'endpoint': 'get_meetup_list'})
 
@@ -21,10 +22,9 @@ class GetMeetupDetails(APIView):
 
     def get(self, request, pk, format=None):
 
-        MI = MeetUPInterface()
 
         data = {'error': True}
-        meetup_detail = MI.getMeetUpsDetails(pk)
+        meetup_detail = meetup_interface.getMeetUpsDetails(pk)
 
         if meetup_detail['error'] == False:
             data = meetup_detail
@@ -37,9 +37,8 @@ class GetMeetUpsToday(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):
-        MI = MeetUPInterface()
 
-        data = MI.getMeetUpsToday()
+        data = meetup_interface.getMeetUpsToday()
         if data['error'] == False:
             data['endpoint'] = 'get_meetups_today'
         else:
@@ -52,9 +51,8 @@ class MeetupDetail(APIView):
     permission_classes = (IsAuthenticated,)
 
     def post(self, request, format=None):
-        MI = MeetUPInterface()
 
-        meetup_id = MI.CreateMeetUP(request.data)
+        meetup_id = meetup_interface.CreateMeetUP(request.data)
 
         data = {'endpoint': 'create_meetup', 'error': True}
         if meetup_id != None:
@@ -64,19 +62,17 @@ class MeetupDetail(APIView):
         return Response(data)
 
     def delete(self, request, pk, format=None):
-        MI = MeetUPInterface()
 
         data = {'error': True, 'pk': pk}
 
-        MI.DeleteMeetUp(pk)
+        meetup_interface.DeleteMeetUp(pk)
 
         return Response(data)
 
 class CreateMeeter(APIView):
     def post(self, request, format=None):
-        MI = MeetUPInterface()
 
-        meeter_id = MI.CreateMeeter(request.data)
+        meeter_id = meetup_interface.CreateMeeter(request.data)
 
         data = {'endpoint': 'create_meeter', 'error': True}
         if meeter_id != None:
@@ -89,10 +85,9 @@ class CreateMeeter(APIView):
 class SubscribeMeetup(APIView):
     def post(self, request, format=None):
 
-        MI = MeetUPInterface()
 
         data = {'endpoint': 'subscribe_meet_up', 'error': True}
-        ret = MI.SubscribeMeetUp(request.data)
+        ret = meetup_interface.SubscribeMeetUp(request.data)
 
         if not ret['error']:
             data['error'] = False
@@ -106,8 +101,7 @@ class UnsubscribeMeetUp(APIView):
         print(request.data)
 
         data = {'endpoint': 'unsubscribe_meet_up', 'error': True}
-        MI = MeetUPInterface()
-        ret = MI.UnsubscribeMeetUp(request.data)
+        ret = meetup_interface.UnsubscribeMeetUp(request.data)
 
         if not ret['error']:
             data['error'] = False
@@ -117,16 +111,33 @@ class UnsubscribeMeetUp(APIView):
 
 class Checkin(APIView):
     def post(self, request, format=None):
-        data = {'endpoint': 'unsubscribe_meet_up', 'error': True, 'request': request.data}
+        data = {'endpoint': 'checkin_meet_up', 'error': True, 'request': request.data}
 
-        MI = MeetUPInterface()
 
-        ret = MI.CheckinMeetUp(request.data)
+        ret = meetup_interface.CheckinMeetUp(request.data)
 
         return Response(data)
 
+
 class ConfirmCreateMeeter(APIView):
-    pass
+
+    def post(self, request, format=None):
+        data = {'endpoint': 'confirm_create_meeter', 'error': True, 'request': request.data}
+
+
+        ret = meetup_interface.ConfirmCreateMeeter(request.data)
+
+        return Response(data)
+
 
 class ConfirmDeleteMeeter(APIView):
-    pass
+
+    def post(self, request, format=None):
+        data = {'endpoint': 'confirm_delete_meeter', 'error': True, 'request': request.data}
+
+        ret = meetup_interface.ConfirmDeleteMeeter(request.data)
+
+        return Response(data)
+
+
+
