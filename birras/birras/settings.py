@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
+from birras import api_weather_token
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
@@ -152,7 +153,7 @@ REST_FRAMEWORK = {
 
 WEATHER_API_URL = 'http://api.openweathermap.org/data/2.5/weather?q={}&APPID={}'
 WEATHER_PLACE = 'London,uk' 
-WEATHER_APPID = '80094b733f66d8d7096912d870c78fd5'
+WEATHER_APPID = api_weather_token.WEATHER_APPID
 
 
 redis_host = 'localhost'

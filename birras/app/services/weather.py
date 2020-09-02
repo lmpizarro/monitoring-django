@@ -3,7 +3,7 @@ import json
 from birras import settings
 
 # implements
-# http://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=80094b733f66d8d7096912d870c78fd5
+# http://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 class Weather:
 
     def __init__(self):
