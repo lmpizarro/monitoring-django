@@ -31,7 +31,7 @@ as a user I want to check in a meetup (to register that I was there)
 
 ### Apis weather:
 
-[rapidapi] (https://rapidapi.com)
+[rapidapi](https://rapidapi.com)
 
 - open-weather-map
 - weather
