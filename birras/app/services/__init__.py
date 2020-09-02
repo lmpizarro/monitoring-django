@@ -111,7 +111,9 @@ class MeetUPInterface:
         try:
             model = MeetUP.objects.get(pk=pk)
             for meeter in model.meeters.all():
-                send_notification_delete_meetup.delay(meeter.email)
+                send_notification_delete_meetup.delay(meeter.email, model.name)
+            model.delete()
+
         except Exception as e:
             print(f'DeleteMeetUp ERROR {e}')
             return None
@@ -166,6 +168,7 @@ class MeetUPInterface:
 
         try:
             a = model_meetup.meeters.add(model_meeter)
+            data['message'] = 'SUBSCRIPTION CREATED'
             data['error'] = False
             return data
         except Exception as e:
@@ -195,6 +198,7 @@ class MeetUPInterface:
         try:
             a = model_meetup.meeters.remove(model_meeter)
             data['error'] = False
+            data['message'] = 'UNSUBSCRIPTION SUCCESS'
             return data
         except Exception as e:
             message = 'MEETUP-MEETER_RELATION_NOT_CREATED'

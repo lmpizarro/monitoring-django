@@ -1,7 +1,6 @@
 from django.core.mail import send_mail
 from birras.settings import EMAIL_FROM
 from jinja2 import Template
-from django.http import HttpRequest
 from birras import settings
 
 
@@ -36,12 +35,44 @@ Click the following address
 the meetups birras team
 
 '''
+
+template_delete_meetup = '''
+This meetup is no longer Available
+
+{{name}}
+the meetups birras team
+'''
+
+
 def fake_send_mail(subject, message, email_from, list_to, fail_silently):
     print(f'SUBJECT {subject}')
     print(f'MESSAGE {message}')
     print(f'email FROM   {email_from}')
     print(f'email TO      {list_to}')
     print(f'fail_silently {fail_silently}')
+
+
+def send_meetup_delete_notification(email, name):
+    '''
+
+    :param email:
+    :param name:
+    :return:
+    '''
+
+
+    template = Template(template_delete_meetup)
+    message = template.render(name=name)
+
+
+    fake_send_mail(
+        'Meet Up No longer Available',
+        message,
+        EMAIL_FROM,
+        [email],
+        fail_silently=False,
+    )
+
 
 def send_meetup_notifications(email, list_meetup):
     '''

@@ -6,6 +6,9 @@ from celery import task
 from app.management.commands.updatetemperature import updatetemperature
 from app.services.notifications import Notifications
 from app.services.emailsender import send_meetup_notifications
+from app.services.emailsender import send_meetup_delete_notification
+
+
 
 @task(name='newtemperature')
 def newtemperature():
@@ -14,8 +17,9 @@ def newtemperature():
 
 
 @shared_task
-def send_notification_delete_meetup(email):
-     return f"NOTIFICATION DELETE MEETUP {email}"
+def send_notification_delete_meetup(email, name):
+    send_meetup_delete_notification(email, name)
+    return f"NOTIFICATION {email} DELETE MEETUP {name}"
 
 
 @shared_task

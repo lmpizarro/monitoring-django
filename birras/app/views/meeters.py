@@ -149,6 +149,8 @@ class Checkin(APIView):
 
         ret = meetup_interface.CheckinMeetUp(request.data)
 
+        data['error'] = ret['error']
+
         return Response(data)
 
 

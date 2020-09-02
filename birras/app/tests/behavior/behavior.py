@@ -52,43 +52,44 @@ def getMeetUpsToday():
     return response.json()
 
 
-def create_meetup():
-    today = datetime.combine(date.today(), datetime.min.time()).replace(tzinfo=pytz.UTC)
-    delta = timedelta(days=60, hours=18)
-    meetupday = today + delta
-    
-    url_create_meetup = be_url.format("api/Meetup/")
-    data = {'name': 'python meetup about django3', 
-            'meet_date': str(meetupday),
-            'place': 'just the office behind us',
-            'description': 'we will discuss the improvements to django admin'}
-            
-    response_create = requests.request('POST', url_create_meetup, data=json.dumps(data), headers=header)
-    
-    return response_create.json()
-
 
 
   
-def subscribe_meetup():
+def subscribe_meetup(email='rosa15@alba.com', meetup_id=1):
     url_subscribe = be_url.format("api/subscribe_meetup/")
-    data = {'email': 'algun_meeter@gmail.com', 'meetup_id': 8}
+    data = {'email': email, 'meetup_id': meetup_id}
     response_create = requests.request('POST', url_subscribe, data=json.dumps(data), headers=header)
     
     return response_create.json()
 
 
-def unsubscribe_meetup():
+def unsubscribe_meetup(email='rosa15@alba.com', meetup_id=8):
     url_unsubscribe = be_url.format("api/unsubscribe_meetup/")
-    data = {'email': 'algun_meeter@gmail.com', 'meetup_id': 8}
+    data = {'email': email, 'meetup_id': meetup_id}
     response_create = requests.request('POST', url_unsubscribe, data=json.dumps(data), headers=header)
     
     return response_create.json()
 
 
-def delete_meetup():
-    pk = 8
-    endpoint = f'api/Meetup/{pk}/'
+def create_meetup_today(name='give me a name'):
+
+    today = datetime.combine(date.today(), datetime.min.time()).replace(tzinfo=pytz.UTC)
+    delta = timedelta(days=0, hours=1)
+    meetupday = today + delta
+
+    url_create_meetup = be_url.format("api/Meetup/")
+    data = {'name': name,
+            'meet_date': str(meetupday),
+            'place': 'just the office behind us',
+            'description': 'we will discuss the improvements to django admin'}
+
+    response_create = requests.request('POST', url_create_meetup, data=json.dumps(data), headers=header)
+
+    return response_create.json()
+
+
+def delete_meetup(meetup_id=8):
+    endpoint = f'api/Meetup/{meetup_id}/'
     
     url_delete_meetup = be_url.format(endpoint)
     print(url_delete_meetup)
@@ -97,9 +98,9 @@ def delete_meetup():
     return response_delete.json()
 
 
-def checkin():
+def checkin(email='rosa15@alba.com', meetup_id=9):
     url_checkin = be_url.format("api/checkin/")
-    data = {'email': 'rosa15@alba.com', 'meetup_id': 8}
+    data = {'email': email, 'meetup_id': meetup_id}
     response_create = requests.request('POST', url_checkin, data=json.dumps(data), headers=header)
 
     return response_create.json()
@@ -150,28 +151,33 @@ def create_delete_meeter_sequence():
 def main():
     utils.print_out(login(), 'LOGIN')
 
-    utils.print_out(getMeetUps(), 'GETMEETUPS')
+    meet_ups = getMeetUps()
+    utils.print_out(meet_ups, 'GETMEETUPS')
+
+    for meet_up in meet_ups['data']:
+        utils.print_out(meet_up, 'MEETUP')
+        utils.print_out(getMeetUpDetails(meet_up['meetup_id']), 'getMeetUpDetails')
+
+
+    # utils.print_out(create_meetup_today(name='python meetup about django5'), 'create_meetup')
+    # utils.print_out(getMeetUpsToday(), 'getMeetUpsToday')
+
+
+    # utils.print_out(subscribe_meetup(email='rosa6@alba.com', meetup_id=9), 'subscribe_meetup')
+    utils.print_out(subscribe_meetup(email='rosa4@alba.com', meetup_id=9), 'subscribe_meetup')
+    # utils.print_out(subscribe_meetup(email='rosa5@alba.com', meetup_id=8), 'subscribe_meetup')
+
+    # utils.print_out(unsubscribe_meetup(email='rosa6@alba.com', meetup_id=9), 'unsubscribe_meetup')
     
-    utils.print_out(getMeetUpDetails(6), 'getMeetUpDetails')
-    
-    utils.print_out(getMeetUpsToday(), 'getMeetUpsToday')
+    # utils.print_out(delete_meetup(meetup_id=8), 'delete_meetup')
 
-    # print_out(create_meetup(), 'create_meetup')    
-
-    utils.print_out(subscribe_meetup(), 'subscribe_meetup')
-
-    utils.print_out(unsubscribe_meetup(), 'unsubscribe_meetup')
-    
-    utils.print_out(delete_meetup(), 'delete_meetup')
-
-    utils.print_out(checkin(), 'checkin')
+    utils.print_out(checkin(email='rosa4@alba.com', meetup_id=9), 'checkin')
 
 
 
 if __name__ == '__main__':
-    # main()
-    # utils.print_out(checkin(), 'checkin')
+    main()
 
-    create_delete_meeter_sequence()
+    # create_delete_meeter_sequence()
 
 
